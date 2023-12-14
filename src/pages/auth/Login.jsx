@@ -20,7 +20,7 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
         <img src={logo} alt="logo" className="w-60 mb-4" />
-      <section className="h-fit bg-dat-white shadow-2xl px-10 py-20">
+      <section className="h-fit bg-dat-white shadow-2xl px-10 py-10">
         <div className="text-center">
           <h1 className="text-1xl font-bold mb-10">Login</h1>
           <form className="flex flex-col items-center">
@@ -53,7 +53,7 @@ const Login = () => {
               </div>
             </label>
             <button
-              className="bg-dat-blue text-dat-white px-20 py-3 rounded-full"
+              className="bg-dat-blue text-dat-white px-20 py-3 rounded-full mt-4"
               type="button"
               onClick={handleLogin}>
               Login
