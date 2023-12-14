@@ -1,4 +1,4 @@
-import logo from "../asserts/logo/logo.svg";
+import logo from "../assets/logo/logo.svg";
 import { to } from "react-router-dom";
 
 
