@@ -64,7 +64,7 @@ const Login = () => {
             </label>
             <div>
               <button
-                className="bg-dat-blue text-dat-white px-20 py-3 rounded-full"
+                className="bg-dat-blue text-dat-white px-20 py-3 rounded-full mt-8"
                 type="button"
                 onClick={handleSignup}>
                 Sign Up
