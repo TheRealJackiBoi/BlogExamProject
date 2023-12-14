@@ -1,12 +1,10 @@
 import logo from "../assets/logo/logo.svg";
-import { to } from "react-router-dom";
-
 
 function Index() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
 
-      <img src={logo} alt="Blogged logo" className="w-1/2 mb-8" />
+      <img src={logo} alt="Blogged logo" className="w-1/6" />
 
       <h1 className="text-2xl font-bold mb-4">Login or signup</h1>
       <p className="mb-4">

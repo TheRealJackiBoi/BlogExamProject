@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ErrorPage from './pages/ErrorPage.jsx';
+import Index from './pages/Index.jsx';
 
 
 const router = createBrowserRouter([
