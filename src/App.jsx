@@ -1,12 +1,13 @@
-import Login from './pages/auth/Login'
-import SignUp from './pages/auth/SignUp'
+import { Outlet } from 'react-router-dom'
 import './App.css'
+import NavBar from './components/NavBar/NavBar.jsx'
 
 function App() {
 
   return (
     <>
-    < SignUp />
+      <NavBar />
+      <Outlet />
     </>
   )
 }
