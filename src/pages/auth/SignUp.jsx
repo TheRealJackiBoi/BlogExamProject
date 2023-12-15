@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.svg";
 import { Icon } from "react-icons-kit";
-import { eyeOff } from "react-icons-kit/feather/eyeOff";
-import { eye } from "react-icons-kit/feather/eye";
+import {withLine} from 'react-icons-kit/entypo/withLine'
+import {eye} from 'react-icons-kit/entypo/eye'
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +14,7 @@ const SignUp = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [formComplete, setFormComplete] = useState(false);
   const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(eyeOff);
+  const [icon, setIcon] = useState(withLine);
 
   // npm install react-icons-kit
   const handleToggle = () => {
@@ -22,7 +22,7 @@ const SignUp = () => {
       setIcon(eye);
       setType("text");
     } else {
-      setIcon(eyeOff);
+      setIcon(withLine);
       setType("password");
     }
   };
