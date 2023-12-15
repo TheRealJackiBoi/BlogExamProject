@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.svg";
+import { Icon } from "react-icons-kit";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
+import { eye } from "react-icons-kit/feather/eye";
 
-const Login = () => {
+const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -10,6 +13,19 @@ const Login = () => {
   // to have a big if statement rather than a big else statement
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [formComplete, setFormComplete] = useState(false);
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eyeOff);
+
+  // npm install react-icons-kit
+  const handleToggle = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
 
   const handleSignup = () => {
     // Check if passwords are matching
@@ -51,14 +67,17 @@ const Login = () => {
                 }
               />
             </label>
-            <label className="mb-2">
+            <label className="mb-2 grid grid-cols-1">
               <div className="text-left">Password</div>
+              <div className="relative">
               <input
                 className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
-                type="password"
+                type={type}
                 value={password}
                 placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 onBlur={() =>
                   setFormComplete(
                     !!username &&
@@ -68,12 +87,19 @@ const Login = () => {
                   )
                 }
               />
+              <span
+                class="absolute right-2 top-2 cursor-pointer"
+                onClick={handleToggle}>
+                <Icon icon={icon} size={20} />
+              </span>
+              </div>
             </label>
-            <label className="mb-2">
+            <label className="mb-2 grid grid-cols-1">
               <div className="text-left">Repeat password</div>
+              <div className="relative">
               <input
                 className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
-                type="password"
+                type={type}
                 value={repeatPassword}
                 placeholder="Repeat password"
                 onChange={(e) => {
@@ -89,6 +115,11 @@ const Login = () => {
                   )
                 }
               />
+              <span
+                class="absolute right-2 top-2 cursor-pointer"
+                onClick={handleToggle}>
+              </span>
+              </div>
               {!passwordMatch && (
                 <p className="text-dat-red text-sm">
                   Passwords do not match. Please try again.
@@ -117,7 +148,6 @@ const Login = () => {
               {/* The code below handles whether the signup button is faded out
               depending on form being filled out or not */}
               <button
-              
                 className={`bg-dat-blue text-dat-white px-20 py-3 rounded-full mt-8 ${
                   formComplete ? "" : "opacity-50 cursor-not-allowed"
                 }`}
@@ -134,4 +164,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
