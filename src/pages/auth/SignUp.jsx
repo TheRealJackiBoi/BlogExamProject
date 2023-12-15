@@ -71,7 +71,7 @@ const SignUp = () => {
               <div className="text-left">Password</div>
               <div className="relative">
               <input
-                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
+                className="bg-dat-white border border-dat-black p-2 rounded w-60 max-w-[calc(100%)2rem)] shadow-md shadow-gray-400 mb-2 pr-7"
                 type={type}
                 value={password}
                 placeholder="Password"
