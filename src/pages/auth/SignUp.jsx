@@ -25,7 +25,7 @@ const Login = () => {
             <label className="mb-2">
               <div className="text-left">Username</div>
               <input
-                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400"
+                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
                 type="text"
                 value={username}
                 placeholder="Username"
@@ -35,7 +35,7 @@ const Login = () => {
             <label className="mb-2">
               <div className="text-left">Password</div>
               <input
-                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400"
+                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
                 type="password"
                 value={password}
                 placeholder="Password"
@@ -45,7 +45,7 @@ const Login = () => {
             <label className="mb-2">
               <div className="text-left">Repeat password</div>
               <input
-                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400"
+                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
                 type="password"
                 value={password}
                 placeholder="Repeat password"
