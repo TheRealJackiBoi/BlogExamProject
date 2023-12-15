@@ -4,12 +4,21 @@ import logo from "../../assets/logo.svg";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [securityQuestion, setSecurityQuestion] = useState("");
+  // Could potentially flip this to false for clarity, but I think it makes more sense
+  // to have a big if statement rather than a big else statement
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [formComplete, setFormComplete] = useState(false);
 
   const handleSignup = () => {
-    // Add backend logic to create a new user
-    // Currently just testing in browser console
-    console.log("Signing up with:", username, password);
+    // Check if passwords are matching
+    if (password === repeatPassword && formComplete) {
+      // Add backend logic to create a new user
+    } else {
+      setPasswordMatch(false);
+      setFormComplete(!!username && !!password && !!repeatPassword && !!securityQuestion)
+    }
   };
 
   return (
@@ -47,10 +56,18 @@ const Login = () => {
               <input
                 className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
                 type="password"
-                value={password}
+                value={repeatPassword}
                 placeholder="Repeat password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setRepeatPassword(e.target.value);
+                  setPasswordMatch(true);
+                }}
               />
+              {!passwordMatch && (
+                <p className="text-dat-red text-sm">
+                  Passwords do not match. Please try again.
+                </p>
+              )}
             </label>
             <label className="mb-2">
               <div className="text-left">Name of your first dog?</div>
