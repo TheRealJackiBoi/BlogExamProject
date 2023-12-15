@@ -88,7 +88,7 @@ const SignUp = () => {
                 }
               />
               <span
-                class="absolute right-2 top-2 cursor-pointer"
+                class="absolute right-2 top-1.5 cursor-pointer"
                 onClick={handleToggle}>
                 <Icon icon={icon} size={20} />
               </span>
