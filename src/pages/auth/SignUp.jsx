@@ -5,9 +5,6 @@ import { Icon } from "react-icons-kit";
 import { withLine } from "react-icons-kit/entypo/withLine";
 import { eye } from "react-icons-kit/entypo/eye";
 
-// npm install react-icons-kit
-// npm install zxcvbn
-
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
