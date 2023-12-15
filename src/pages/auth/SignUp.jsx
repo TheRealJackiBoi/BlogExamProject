@@ -17,7 +17,9 @@ const Login = () => {
       // Add backend logic to create a new user
     } else {
       setPasswordMatch(false);
-      setFormComplete(!!username && !!password && !!repeatPassword && !!securityQuestion)
+      setFormComplete(
+        !!username && !!password && !!repeatPassword && !!securityQuestion
+      );
     }
   };
 
@@ -39,6 +41,14 @@ const Login = () => {
                 value={username}
                 placeholder="Username"
                 onChange={(e) => setUsername(e.target.value)}
+                onBlur={() =>
+                  setFormComplete(
+                    !!username &&
+                      !!password &&
+                      !!repeatPassword &&
+                      !!securityQuestion
+                  )
+                }
               />
             </label>
             <label className="mb-2">
@@ -49,6 +59,14 @@ const Login = () => {
                 value={password}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
+                onBlur={() =>
+                  setFormComplete(
+                    !!username &&
+                      !!password &&
+                      !!repeatPassword &&
+                      !!securityQuestion
+                  )
+                }
               />
             </label>
             <label className="mb-2">
@@ -62,6 +80,14 @@ const Login = () => {
                   setRepeatPassword(e.target.value);
                   setPasswordMatch(true);
                 }}
+                onBlur={() =>
+                  setFormComplete(
+                    !!username &&
+                      !!password &&
+                      !!repeatPassword &&
+                      !!securityQuestion
+                  )
+                }
               />
               {!passwordMatch && (
                 <p className="text-dat-red text-sm">
@@ -77,13 +103,27 @@ const Login = () => {
                 value={securityQuestion}
                 placeholder="Wilfred Woofenstein"
                 onChange={(e) => setSecurityQuestion(e.target.value)}
+                onBlur={() =>
+                  setFormComplete(
+                    !!username &&
+                      !!password &&
+                      !!repeatPassword &&
+                      !!securityQuestion
+                  )
+                }
               />
             </label>
             <div>
+              {/* The code below handles whether the signup button is faded out
+              depending on form being filled out or not */}
               <button
-                className="bg-dat-blue text-dat-white px-20 py-3 rounded-full mt-8"
+              
+                className={`bg-dat-blue text-dat-white px-20 py-3 rounded-full mt-8 ${
+                  formComplete ? "" : "opacity-50 cursor-not-allowed"
+                }`}
                 type="button"
-                onClick={handleSignup}>
+                onClick={handleSignup}
+                disabled={!formComplete}>
                 Sign Up
               </button>
             </div>
