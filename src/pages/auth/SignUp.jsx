@@ -56,10 +56,10 @@ const Login = () => {
               <div className="text-left">Name of your first dog?</div>
               <input
                 className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400"
-                type="password"
-                value={password}
+                type="text"
+                value={securityQuestion}
                 placeholder="Wilfred Woofenstein"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setSecurityQuestion(e.target.value)}
               />
             </label>
             <div>
