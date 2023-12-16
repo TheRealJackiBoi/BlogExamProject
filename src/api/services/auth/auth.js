@@ -43,6 +43,7 @@ export const login = async (username, password, callback) => {
     } 
     catch (error) {
         console.error(error)
+        callback(false)
     }
 }
 

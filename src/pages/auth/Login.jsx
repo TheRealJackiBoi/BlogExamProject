@@ -6,13 +6,17 @@ import { redirect } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [authorized, setAuthorized] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // Add backend logic to sign in a user
     // Currently just testing in browser console
     console.log("Logging in with:", username, password);
-    login(username, password)
-    console.log(getToken())
+    await login(username, password, setAuthorized)
+    if (authorized) {
+      console.log(getToken())
+      redirect("/home")
+    }
   };
 
   const handleSignup = () => {
