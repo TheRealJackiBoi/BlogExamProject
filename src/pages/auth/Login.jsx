@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import logo from "../../assets/logo.svg";
+import { login, getToken } from './../../api/services/auth/auth.js'
+import { redirect } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -9,12 +11,15 @@ const Login = () => {
     // Add backend logic to sign in a user
     // Currently just testing in browser console
     console.log("Logging in with:", username, password);
+    login(username, password)
+    console.log(getToken())
   };
 
   const handleSignup = () => {
     // Add backend logic to create a new user
     // Currently just testing in browser console
-    console.log("Signing up with:", username, password);
+    console.log("Going to signup page")
+    redirect("/signup")
   };
 
   return (

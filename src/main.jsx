@@ -8,7 +8,8 @@ import {
 } from "react-router-dom";
 import ErrorPage from './pages/ErrorPage.jsx';
 import Index from './pages/Index.jsx';
-
+import Login from './pages/auth/Login.jsx';
+import Signup from './pages/auth/Signup.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,19 @@ const router = createBrowserRouter([
         index: true,
         element: <Index />,
       },
+      {
+        path: "auth/",
+        children: [
+          {
+            path: "login",
+            element: <Login />,
+          },
+          {
+            path: "signup",
+            element: <Signup />,
+          },
+        ],
+      }
     ]
   },
 ]);
