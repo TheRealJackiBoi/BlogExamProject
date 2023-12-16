@@ -37,7 +37,32 @@ export const login = async (username, password, callback) => {
                 "Content-Type": "application/json",
             },
         })
-    const token = response.data
+    const token = response.data.token
+    callback(true)
+    setToken(token)
+    } 
+    catch (error) {
+        console.error(error)
+    }
+}
+
+export const register = async (username, password, callback) => {
+    
+    const data = {
+        username: username,
+        password: password
+    }
+
+    try {
+    const response = await axios.post(`${BASE_URL}/auth/register`, 
+        data, 
+        {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+    const token = response.data.token
     callback(true)
     setToken(token)
     } 
