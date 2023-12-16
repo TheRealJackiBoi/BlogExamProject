@@ -12,6 +12,7 @@ export default {
         "dat-red": "#EB5160",
         "dat-black": "#071013",
         "dat-white": "#F8F8FF",
+        "dat-yellow": "#FAC748"
       },
     },
   },
