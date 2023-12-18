@@ -4,7 +4,7 @@
 
 Introducing 'Blogged'—a visionary blog platform where users seamlessly share their thoughts with friends. Crafted with the power of React hooks, such as  `useState` and `useEffect`, this application empowers you to effortlessly manage your posts. Edit and refine your creations or gracefully bid them farewell with the deletion feature. Navigating through the content is a breeze, thanks to the elegance of React-router for seamless routing.
 
-Under the hood, this dynamic application communicates effortlessly with a server using the Fetch API. Elevating the user experience further, 'Blogged' leverages the robust json-server to persistently store your valuable content. Experience the fusion of creativity and technology in this sophisticated blog concept.
+Under the hood, this dynamic application communicates effortlessly with a server using the Axios API. Elevating the user experience further, 'Blogged' leverages our own robust [backend application](https://github.com/TheRealJackiBoi/BlogExamProjectBackend) to persistently store your valuable content. Experience the fusion of creativity and technology in this sophisticated blog concept.
 
 ## Features
 
@@ -65,7 +65,7 @@ Make sure you have Node.js and npm installed before running the application.
 ## CRUD Operationer
 
 ```javascript
-    
+
 ```
 
 
