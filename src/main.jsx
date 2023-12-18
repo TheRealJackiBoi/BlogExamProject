@@ -9,7 +9,7 @@ import {
 import ErrorPage from './pages/ErrorPage.jsx';
 import Index from './pages/Index.jsx';
 import Login, { action as loginAction } from './pages/auth/Login.jsx';
-import Signup from './pages/auth/Signup.jsx';
+import Signup, { action as signupAction } from './pages/auth/Signup.jsx';
 import Home from './pages/Home.jsx';
 
 const router = createBrowserRouter([
@@ -33,6 +33,7 @@ const router = createBrowserRouter([
           {
             path: "signup",
             element: <Signup />,
+            action: signupAction
           },
         ],
       },

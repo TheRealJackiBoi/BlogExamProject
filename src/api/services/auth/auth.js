@@ -2,15 +2,37 @@ import axios from 'axios';
 import { BASE_URL } from './../config.js'
 
 
-// Get and Set token
-export const setToken = (token) => {
+const TOKEN_EXPIRY = 3600000 // 1 hour
 
-    localStorage.setItem('token', token)
+// Get and Set token
+export const setToken = (tokenValue) => {
+    const now = new Date()
+
+    const token = {
+        "value": tokenValue,
+        "expiry": now.getTime() + TOKEN_EXPIRY
+    }
+    localStorage.setItem('token', JSON.stringify(token))
+    return token.value
 }
 
 export const getToken = () => {
 
-    return localStorage.getItem('token')
+    const tokenStr = localStorage.getItem('token')
+
+    if (!tokenStr) {
+        return null
+    }
+
+    const token = JSON.parse(tokenStr)
+    const now = new Date()
+
+    if (now.getTime() > token.expiry) {
+        localStorage.removeItem('token')
+        return null
+    }
+
+    return token.value
 }
 
 // Logout
@@ -50,8 +72,8 @@ export const login = async (username, password, callback) => {
 export const register = async (username, password, callback) => {
     
     const data = {
-        username: username,
-        password: password
+        "username": username,
+        "password": password
     }
 
     try {
