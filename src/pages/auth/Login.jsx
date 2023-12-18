@@ -6,7 +6,7 @@ export const action = async ({ request }) => {
   
   if (request.method !== "POST") {
     alert("Not allowed")
-    return redirect(`/books/new`);
+    return redirect(`/auth/login`);
   }    
   const data = await request.formData();
   console.log(data)
