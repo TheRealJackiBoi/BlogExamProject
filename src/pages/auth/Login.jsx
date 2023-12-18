@@ -12,10 +12,8 @@ export const action = async ({ request }) => {
   console.log(data)
   if (data.get("username") === "" || data.get("password") === "") {
       alert("Please fill out all fields")
-      redirect(`/auth/login`);
-      return;
+      return redirect(`/auth/login`);
   }
-  console.log(await data)
 
   const username = await data.get("username");
   const password = await data.get("password");
