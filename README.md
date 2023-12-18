@@ -6,6 +6,8 @@ Introducing 'Blogged'—a visionary blog platform where users seamlessly share t
 
 Under the hood, this dynamic application communicates effortlessly with a server using the Axios API. Elevating the user experience further, 'Blogged' leverages our own robust [backend application](https://github.com/TheRealJackiBoi/BlogExamProjectBackend) to persistently store your valuable content. Experience the fusion of creativity and technology in this sophisticated blog concept.
 
+Our backend is meticulously crafted in Java, utilizing the powerful Javalin library to sculpt seamless routes for our REST API. This strategic choice ensures optimal performance and robust functionality, providing a solid foundation for our application's backend architecture.
+
 ## Features
 
 - Create or login to an account
@@ -22,9 +24,7 @@ Make sure you have Node.js and npm installed before running the application.
 
 - Node.js: [Download Node.js](https://nodejs.org/)
 - json-server: Install using `npm install -g json-server`
-
 - [@react-router](https://github.com/remix-run/react-router/blob/main/README.md) for routing
-
 - [Styling](https://github.com/tailwindlabs/tailwindcss/blob/master/README.md) uses [Tailwind] for simple css
 
 
@@ -124,3 +124,7 @@ react-Blogged
 ├── vite.config.js
 └── README.md
 ```
+
+## Contributing
+
+If you are interested in contribuing to this or any of our future projects, apply via this [Contribute doc](https://youtu.be/dQw4w9WgXcQ?t=42) link.
