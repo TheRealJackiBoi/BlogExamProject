@@ -10,9 +10,9 @@ Under the hood, this dynamic application communicates effortlessly with a server
 
 - Create or login to an account
 - Manage your own posts
-    -Create post
-    -Delete post
-    -Edit post
+    - Create post
+    - Delete post
+    - Edit post
 - view posts from other users
 - search after specific users posts
 
