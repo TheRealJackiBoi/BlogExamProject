@@ -110,9 +110,9 @@ react-Blogged
 │   ├── main.jsx
 │   └── utilities
 │   │   └──img
-│   │   |   ├──frontEndMap1.png
-│   │   |   ├──frontEndMap2.png
-│   │   |   └──frontEndMap3.png
+│   │      ├──frontEndMap1.png
+│   │      ├──frontEndMap2.png
+│   │      └──frontEndMap3.png
 ├── .env
 ├── .eslintrc.cjs
 ├── .gitignore
