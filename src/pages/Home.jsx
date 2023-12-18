@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Icon } from "react-icons-kit";
 import { heart } from "react-icons-kit/icomoon/heart";
 
+const API_URL = "";
+
 const Home = () => {
   // Like functionality
   const [likeCount, setLikeCount] = useState(0);
@@ -9,6 +11,13 @@ const Home = () => {
   const handleLikeClick = () => {
     setLikeCount(likeCount + 1);
   };
+
+  // Loader
+  const postLoader = async () => {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+    console.log(data);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen w-1/4 mx-auto">
