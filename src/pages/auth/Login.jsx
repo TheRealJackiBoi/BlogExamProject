@@ -47,7 +47,7 @@ const Login = () => {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center">
       <section className="h-fit bg-dat-white shadow-2xl px-10 py-10 text-center">
           <h1 className="text-1xl font-bold mb-10">Login</h1>
           <Form action='/auth/login' method='post' className="flex flex-col items-center">
