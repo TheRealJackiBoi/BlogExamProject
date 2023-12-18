@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/logo/logo.svg";
 
 function Index() {
@@ -11,9 +12,9 @@ function Index() {
         Are you ready to be blogged?
       </p>
 
-      <button to="/login" className="bg-dat-black text-white font-semibold py-2 w-40 rounded-full mt-12">Login </button>
+      <Link to="/auth/login" className="bg-dat-black text-white font-semibold py-2 w-40 rounded-full mt-12 text-center">Login </Link>
       <p className="my-4">or</p>
-      <button to="/signup" className="bg-dat-blue text-white font-semibold py-2 w-40 rounded-full">Signup</button>
+      <Link to="/auth/signup" className="bg-dat-blue text-white font-semibold py-2 w-40 rounded-full text-center">Signup</Link>
       
     </div>
   );
