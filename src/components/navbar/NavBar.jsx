@@ -68,18 +68,25 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
             <div
                 id="navbuttons"
                 className={`${
-                    isSmallScreen ? (!burgerMenuOpen ? "hidden" : " bg-dat-olive absolute top-10 right-1 flex flex-col z-10 divide-y divide-dat-white rounded-lg shadow min-w-[8rem] ") : "flex flex-row justify-between items-end mr-2"
+                    isSmallScreen ? (!burgerMenuOpen ? "hidden" : " bg-dat-olive absolute top-12 right-1 flex flex-col z-10 divide-y divide-dat-white rounded-lg shadow min-w-[8rem] ") : "flex flex-row justify-between items-end mr-2"
                 } `}
             >
-                {!loggedIn ? (
-                    <>
-                        <NavLink to="/auth/login" className="">
+                {!loggedIn ? ( isSmallScreen ? (<>
+                    <NavLink to="/auth/login" className="px-2 py-1">
                             Login
                         </NavLink>
-                        <NavLink to="/auth/signup" className="">
+                        <NavLink to="/auth/signup" className="px-2 py-1">
                             Sign Up
                         </NavLink>
-                    </>
+                </>) : (<>
+                        <NavLink to="/auth/login" className="m-2">
+                            Login
+                        </NavLink>
+                        <NavLink to="/auth/signup" className="m-2">
+                            Sign Up
+                        </NavLink>
+                    </>)
+                    
                 ) : (
                     <>  
                     <div className="px-2 py-1">
@@ -99,10 +106,10 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
                     ) : 
                     (
                         <>
-                        <NavLink to="/" className="">
+                        <NavLink to="/" className="mx-2 my-1">
                             New Post
                         </NavLink>
-                        <NavLink to="/" className="">
+                        <NavLink to="/" className="mx-2 my-1">
                             New Post
                         </NavLink>
                         </>
