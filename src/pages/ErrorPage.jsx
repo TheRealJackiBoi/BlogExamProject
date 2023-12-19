@@ -1,8 +1,8 @@
 import { useRouteError } from "react-router-dom";
 import NavBar from "../components/navbar/NavBar";
 import { Link } from "react-router-dom";
-import { Icon } from 'react-icons-kit';
-import { baffled } from 'react-icons-kit/icomoon/baffled';
+import { Icon } from "react-icons-kit";
+import { baffled } from "react-icons-kit/icomoon/baffled";
 
 const errorMessages = [
   "These are not the droids you are looking for.",
@@ -32,12 +32,22 @@ export default function ErrorPage() {
       <NavBar />
       <section className="h-fit bg-dat-white shadow-2xl px-20 py-10 text-center w-fit mx-auto mt-10">
         <h1 className="text-3xl font-bold mb-5">
-          {error ? `${error.status} ${error.statusText}` : "Unexpected Error"}
+          {error
+            ? `${error.status} ${error.statusText}`
+            : "Something went wrong. Please try again later."}
         </h1>
-        <h1 className="text-xl mb-2">Oops... <Icon icon={baffled} size="25" /></h1>
+        <h1 className="text-xl mb-2">
+          Oops... <Icon icon={baffled} size="25" />
+        </h1>
         {/* Code below: Only display the random message if error is 404 */}
-        {error && error.status === 404 && <p className="mb-5">{getRandomMessage()}</p>}
-        <p><Link to="/">Navigate to <u>safety</u></Link></p>
+        {error && error.status === 404 && (
+          <p className="mb-5">{getRandomMessage()}</p>
+        )}
+        <p>
+          <Link to="/">
+            Navigate to <u>safety</u>
+          </Link>
+        </p>
       </section>
     </div>
   );
