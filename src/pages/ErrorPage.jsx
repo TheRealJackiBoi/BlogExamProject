@@ -29,7 +29,6 @@ export default function ErrorPage() {
 
   return (
     <div className="mx-auto text-center justify-center">
-      <NavBar />
       <section className="h-fit bg-dat-white shadow-2xl px-20 py-10 text-center w-fit mx-auto mt-10">
         <h1 className="text-3xl font-bold mb-5">
           {error
