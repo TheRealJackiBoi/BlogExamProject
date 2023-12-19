@@ -4,7 +4,7 @@ import NavBar from '../components/navbar/NavBar.jsx'
 import { getToken } from '../api/services/auth/auth.js';
 
 
-const MainLayout = () => {
+const MainLayout = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const MainLayout = () => {
   return (
     <>
         <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
-        <Outlet context={[loggedIn, setLoggedIn]} />
+        { children ?? <Outlet context={[loggedIn, setLoggedIn]} /> }
     </>
   )
 }
