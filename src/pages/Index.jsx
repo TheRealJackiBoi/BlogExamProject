@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/logo/logo.svg";
+import logo from "../assets/logo.svg";
 
 function Index() {
   return (
     <div className="flex flex-col items-center justify-center">
 
-      <img src={logo} alt="Blogged logo" className="w-1/6" />
+      <img src={logo} alt="Blogged logo" className="w-1/12 my-16" />
 
       <h1 className="text-4xl font-bold mb-4">Login or signup</h1>
       <p className="mb-4">

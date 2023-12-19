@@ -3,6 +3,42 @@ import zxcvbn from "zxcvbn";
 import { Icon } from "react-icons-kit";
 import { withLine } from "react-icons-kit/entypo/withLine";
 import { eye } from "react-icons-kit/entypo/eye";
+import { Form, redirect } from "react-router-dom";
+import { register } from "../../api/services/auth/auth";
+
+
+
+export const action = async ({ request }) => {
+
+  if (request.method !== "POST") {
+    alert("Not allowed")
+    return redirect(`/auth/signup`);
+  }
+
+  const data = await request.formData();
+  console.log(await data)
+
+  if (data.get("username") === "" || data.get("password") === "" || data.get("repeat-password") === "" || data.get("security-question") === "") {
+    alert("Please fill out all fields")
+    return redirect(`/auth/signup`);
+  }
+
+  const username = await data.get("username");
+  const password = await data.get("password");
+
+  let authorized = false
+  const setAuthorized = (value) => {
+    authorized = value
+  }
+
+  await register(username, password, setAuthorized)
+  if (authorized) {
+    return redirect("/home")
+  }
+
+  alert("Couldn't create your account")
+  return redirect("/auth/signup")
+}
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -71,20 +107,20 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <img src={logo} alt="logo" className="w-60 mb-4" />
+    <div className="flex flex-col items-center justify-center">
       <section className="h-fit bg-dat-white shadow-2xl px-10 py-10">
         <div className="text-center">
           <h1 className="text-1xl font-bold mb-5">Sign up</h1>
           <h3 className="text-sm mb-5">
             We are excited to have you <br></br> join the Blogged community!
           </h3>
-          <form className="flex flex-col items-center">
+          <Form action="/auth/signup" method="post" className="flex flex-col items-center">
             <label className="mb-2">
               <div className="text-left">Username</div>
               <input
-                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
+                className="bg-dat-white border border-dat-black pl-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
                 type="text"
+                name="username"
                 value={username}
                 placeholder="Username"
                 onChange={(e) => setUsername(e.target.value)}
@@ -102,8 +138,9 @@ const SignUp = () => {
               <div className="text-left">Password</div>
               <div className="relative">
                 <input
-                  className="bg-dat-white border border-dat-black p-2 rounded w-60 max-w-[calc(100%)2rem)] shadow-md shadow-gray-400 mb-2 pr-7"
+                  className="bg-dat-white border border-dat-black pl-2 rounded w-60 max-w-[calc(100%)2rem)] shadow-md shadow-gray-400 mb-2 pr-7"
                   type={type}
+                  name="password"
                   value={password}
                   placeholder="Password"
                   onChange={(e) => {
@@ -125,7 +162,7 @@ const SignUp = () => {
                   }
                 />
                 <span
-                  className="absolute right-2 top-1.5 cursor-pointer"
+                  className="absolute right-2 -top-0.5 cursor-pointer"
                   onClick={handleToggle}>
                   <Icon icon={icon} size={20} />
                 </span>
@@ -146,8 +183,9 @@ const SignUp = () => {
               <div className="text-left">Repeat password</div>
               <div className="relative">
                 <input
-                  className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
+                  className="bg-dat-white border border-dat-black pl-2 rounded w-60 shadow-md shadow-gray-400 mb-2"
                   type={type}
+                  name="repeat-password"
                   value={repeatPassword}
                   placeholder="Repeat password"
                   onChange={(e) => {
@@ -164,7 +202,7 @@ const SignUp = () => {
                   }
                 />
                 <span
-                  className="absolute right-2 top-2 cursor-pointer"
+                  className="absolute right-2 top-1 cursor-pointer"
                   onClick={handleToggle}></span>
               </div>
               {!passwordMatch && (
@@ -176,8 +214,9 @@ const SignUp = () => {
             <label className="mb-2">
               <div className="text-left">Name of your first dog?</div>
               <input
-                className="bg-dat-white border border-dat-black p-2 rounded w-60 shadow-md shadow-gray-400"
+                className="bg-dat-white border border-dat-black pl-2 rounded w-60 shadow-md shadow-gray-400"
                 type="text"
+                name="security-question"
                 value={securityQuestion}
                 placeholder="Wilfred Woofenstein"
                 onChange={(e) => setSecurityQuestion(e.target.value)}
@@ -198,13 +237,13 @@ const SignUp = () => {
                 className={`bg-dat-blue text-dat-white px-20 py-3 rounded-full mt-8 ${
                   formComplete ? "" : "opacity-50 cursor-not-allowed"
                 }`}
-                type="button"
+                type="submit"
                 onClick={handleSignup}
                 disabled={!formComplete}>
                 Sign Up
               </button>
             </div>
-          </form>
+          </Form>
         </div>
       </section>
     </div>
