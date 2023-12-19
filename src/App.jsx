@@ -1,15 +1,67 @@
-import { Outlet } from 'react-router-dom'
+
 import './App.css'
-import NavBar from './components/NavBar/NavBar.jsx'
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+import ErrorPage from './pages/ErrorPage.jsx';
+import Index from './pages/Index.jsx';
+import Login from './pages/auth/Login.jsx';
+import Signup from './pages/auth/Signup.jsx';
+import Home from './pages/Home.jsx';
+import MainLayout from './pages/MainLayout.jsx';
 
 function App() {
 
+  
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <MainLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          index: true,
+          element: <Index />,
+        },
+        {
+          path: "auth/",
+          children: [
+            {
+              path: "login",
+              element: <Login />,
+            },
+            {
+              path: "signup",
+              element: <Signup />,
+            },
+          ],
+        },
+        {
+          path: "home",
+          element: <Home />,
+        },
+      ]
+    },
+  ]);
+
   return (
-    <>
-      <NavBar />
-      <Outlet />
-    </>
+    <RouterProvider router={router} />
   )
 }
 
 export default App
+
+/*
+
+<MainContext.Provider value={{loggedIn, setLoggedIn}}>
+    
+      <NavBar />
+      <Outlet />
+
+    </MainContext.Provider>
+
+    */

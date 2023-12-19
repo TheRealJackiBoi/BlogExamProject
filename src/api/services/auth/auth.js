@@ -22,31 +22,31 @@ export const logout = (callback) => {
 
 
 export const login = async (username, password, callback) => {
-
     const data = {
-        username: username,
-        password: password
-    }
-
+      username: username,
+      password: password,
+    };
+  
     try {
-    const response = await axios.post(`${BASE_URL}/auth/login`, 
-        data, 
-        {
-            withCredentials: true,
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-    const token = response.data.token
-    callback(true)
-    setToken(token)
-    } 
-    catch (error) {
-        console.error(error)
-        callback(false)
+      const response = await axios.post(`${BASE_URL}/auth/login`, data, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const token = response.data.token;
+      setToken(token);
+  
+      callback(true);
+  
+      return true; // Indicate successful login
+    } catch (error) {
+      console.error(error);
+      callback(false);
+      return false; // Indicate login failure
     }
-}
-
+  };
 export const register = async (username, password, callback) => {
     
     const data = {

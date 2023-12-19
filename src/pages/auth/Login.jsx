@@ -1,44 +1,44 @@
 import { useEffect } from 'react';
 import { login, getToken } from './../../api/services/auth/auth.js'
-import { Form, Link, redirect, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate, useOutletContext} from "react-router-dom";
 
-export const action = async ({ request }) => {
-  
-  if (request.method !== "POST") {
-    alert("Not allowed")
-    return redirect(`/auth/login`);
-  }    
-  const data = await request.formData();
-  console.log(data)
-  if (data.get("username") === "" || data.get("password") === "") {
-      alert("Please fill out all fields")
-      redirect(`/auth/login`);
-      return;
-  }
-  console.log(await data)
-
-  const username = await data.get("username");
-  const password = await data.get("password");
-    
-  let authorized = false
-  const setAuthorized = (value) => {
-    authorized = value
-  }
-
-  await login(username, password, setAuthorized)
-  if (authorized) {
-    const token = getToken()
-    console.log(token)
-    return redirect("/home")
-  }
-  alert("Invalid username or password")
-  return redirect("/auth/login")
-};
-
-
+// get setLoggedIn and loggedIn from props
 const Login = () => {
 
   const navigate = useNavigate();
+  
+  const [loggedIn, setLoggedIn] = useOutletContext();
+
+ 
+
+  const handleSubmit = async ( request ) => {
+    
+    const data = new FormData(request.target);
+    console.log(data)
+    if (data.get("username") === "" || data.get("password") === "") {
+        alert("Please fill out all fields")
+        navigate(`/auth/login`);
+    }
+    console.log(data)
+  
+    const username = data.get("username");
+    const password = data.get("password");
+      
+  
+    login(username, password, setLoggedIn)
+    .then(() => {
+        if(loggedIn) {
+        const token = getToken();
+        navigate("/home");
+        }
+    })
+    .catch((error) => {
+      console.error("Login failed", error);
+      navigate("/auth/login");
+    });
+    
+    
+  };
 
   useEffect(() => {
     if (getToken()) {
@@ -50,7 +50,7 @@ const Login = () => {
     <div className="flex flex-col items-center justify-center">
       <section className="h-fit bg-dat-white shadow-2xl px-10 py-10 text-center">
           <h1 className="text-1xl font-bold mb-10">Login</h1>
-          <Form action='/auth/login' method='post' className="flex flex-col items-center">
+          <form className="flex flex-col items-center" onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}}>
             <label className="mb-2">
               <div className="text-left">Username</div>
               <input
@@ -84,7 +84,7 @@ const Login = () => {
               type="submit">
               Login
             </button>
-          </Form>
+          </form>
       </section>
     </div>
   );
