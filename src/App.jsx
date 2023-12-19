@@ -15,6 +15,11 @@ import MainLayout from './pages/MainLayout.jsx';
 
 function App() {
 
+  const postsLoader = async () => {
+    const response = await fetch("http://localhost:7007/api/posts");
+    return response.json();
+  };
+
   
 
   const router = createBrowserRouter([
@@ -43,6 +48,7 @@ function App() {
         {
           path: "home",
           element: <Home />,
+          loader: postsLoader,
         },
       ]
     },

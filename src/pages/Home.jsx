@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Icon } from "react-icons-kit";
 import { heart } from "react-icons-kit/icomoon/heart";
+import { useLoaderData } from "react-router-dom"
 
 const Home = () => {
+  const posts = useLoaderData();
+
+
   // Like functionality
   const [likeCount, setLikeCount] = useState(0);
 
