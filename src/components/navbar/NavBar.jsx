@@ -1,17 +1,41 @@
 import { useNavigate } from "react-router";
 import logo from "./../../assets/logo.svg"
 import { logout } from "./../../api/services/auth/auth.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useOutletContext } from "react-router-dom";
+import { getToken, getUsername } from "./../../api/services/auth/auth.js";
+import {menu3} from 'react-icons-kit/icomoon/menu3'
+import { Icon } from "react-icons-kit";
+
 
 // get setLoggedIn and loggedIn from props
-const NavBar = ({ loggedIn, setLoggedIn}) => {
-
-    const navigate = useNavigate()
-
+const NavBar = ({ loggedIn, setLoggedIn }) => {
+    const navigate = useNavigate();
+    const [username, setUsername] = useState("");
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+    const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
 
     useEffect(() => {
-    }, [loggedIn])
+        const token = getToken();
+        if (token) {
+            setUsername(getUsername());
+        }
+
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth <= 768);
+        };
+
+        // Initial check for screen size
+        handleResize();
+
+        // Event listener for screen size changes
+        window.addEventListener("resize", handleResize);
+
+        // Cleanup the event listener on component unmount
+        return () => window.removeEventListener("resize", handleResize);
+
+    }, [loggedIn]);
+
 
     return (
         <div className="flex justify-between items-center w-screen bg-dat-olive">
@@ -19,10 +43,12 @@ const NavBar = ({ loggedIn, setLoggedIn}) => {
                 id="navlogo"
                 src={logo}
                 alt="Blogged logo"
-                className="w-12 hover:cursor-pointer"
-                onClick={() => {loggedIn ? navigate("/home") : navigate("/")}}
+                className="w-6 m-2 hover:cursor-pointer"
+                onClick={() => {
+                    loggedIn ? navigate("/home") : navigate("/");
+                }}
             />
-            { loggedIn ? (
+
                 <form id="searchprofiles" className="flex items-center">
                     <input
                         type="text"
@@ -30,27 +56,79 @@ const NavBar = ({ loggedIn, setLoggedIn}) => {
                         placeholder="Search..."
                     />
                 </form>
-                ) : (<></>)
-            }
-                { !loggedIn ? (
-
-            <div id="navbuttons" className="">
-
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/login">Sign Up</NavLink>
-
-            </div>
+            {isSmallScreen && (
+                <div
+                    id="burgerMenu"
+                    className="m-2 cursor-pointer"
+                    onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}
+                >
+                    <Icon icon={menu3}></Icon>
+                </div>
+            )}
+            <div
+                id="navbuttons"
+                className={`${
+                    isSmallScreen ? (!burgerMenuOpen ? "hidden" : " bg-dat-olive absolute top-12 right-1 flex flex-col z-10 divide-y divide-dat-white rounded-lg shadow min-w-[8rem] ") : "flex flex-row justify-between items-end mr-2"
+                } `}
+            >
+                {!loggedIn ? ( isSmallScreen ? (<>
+                    <NavLink to="/auth/login" className="px-2 py-1">
+                            Login
+                        </NavLink>
+                        <NavLink to="/auth/signup" className="px-2 py-1">
+                            Sign Up
+                        </NavLink>
+                </>) : (<>
+                        <NavLink to="/auth/login" className="m-2">
+                            Login
+                        </NavLink>
+                        <NavLink to="/auth/signup" className="m-2">
+                            Sign Up
+                        </NavLink>
+                    </>)
+                    
                 ) : (
-                    <div id="navbuttons" className="">
-
-                        <NavLink to="/" onClick={() => logout(setLoggedIn)}>Logout</NavLink>
-
+                    <>  
+                    <div className="px-2 py-1">
+                        <NavLink to="/" className="">
+                            {username}
+                        </NavLink>
                     </div>
-                )
-                }
+                    {isSmallScreen ? (
+                        <div className="flex flex-col px-2 py-1">
+                        <NavLink to="/" className="">
+                            New Post
+                        </NavLink>
+                        <NavLink to="/" className="">
+                            New Post
+                        </NavLink>
+                    </div>
+                    ) : 
+                    (
+                        <>
+                        <NavLink to="/" className="mx-2 my-1">
+                            New Post
+                        </NavLink>
+                        <NavLink to="/" className="mx-2 my-1">
+                            New Post
+                        </NavLink>
+                        </>
+                    )}
+                    
+                    <div className="px-2 py-1">
+                        <NavLink
+                            to="/"
+                            className=""
+                            onClick={() => logout(setLoggedIn)}
+                        >
+                            Logout
+                        </NavLink>
+                    </div>
+                    </>
+                )}
+            </div>
         </div>
-
     );
-}
+};
 
 export default NavBar;
