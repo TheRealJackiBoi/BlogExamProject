@@ -20,9 +20,7 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
         if (token) {
             setUsername(getUsername());
         }
-    }, [loggedIn]);
 
-    useEffect(() => {
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth <= 768);
         };
@@ -35,7 +33,9 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
 
         // Cleanup the event listener on component unmount
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
+
+    }, [loggedIn]);
+
 
     return (
         <div className="flex justify-between items-center w-screen bg-dat-olive">
@@ -56,7 +56,7 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
                         placeholder="Search..."
                     />
                 </form>
-            {loggedIn && isSmallScreen && (
+            {isSmallScreen && (
                 <div
                     id="burgerMenu"
                     className="m-2 cursor-pointer"
@@ -87,7 +87,8 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
                             {username}
                         </NavLink>
                     </div>
-                    <div className="flex flex-col px-2 py-1">
+                    {isSmallScreen ? (
+                        <div className="flex flex-col px-2 py-1">
                         <NavLink to="/" className="">
                             New Post
                         </NavLink>
@@ -95,6 +96,18 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
                             New Post
                         </NavLink>
                     </div>
+                    ) : 
+                    (
+                        <>
+                        <NavLink to="/" className="">
+                            New Post
+                        </NavLink>
+                        <NavLink to="/" className="">
+                            New Post
+                        </NavLink>
+                        </>
+                    )}
+                    
                     <div className="px-2 py-1">
                         <NavLink
                             to="/"
