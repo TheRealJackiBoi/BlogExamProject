@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logo from "../../assets/logo.svg";
 import zxcvbn from "zxcvbn";
 import { Icon } from "react-icons-kit";
 import { withLine } from "react-icons-kit/entypo/withLine";
