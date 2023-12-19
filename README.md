@@ -25,7 +25,7 @@ Make sure you have Node.js and npm installed before running the application.
 - Node.js: [Download Node.js](https://nodejs.org/)
 - json-server: Install using `npm install -g json-server`
 - [@react-router](https://github.com/remix-run/react-router/blob/main/README.md) for routing
-- [Styling](https://github.com/tailwindlabs/tailwindcss/blob/master/README.md) uses [Tailwind] for simple css
+- [Styling](https://github.com/tailwindlabs/tailwindcss/blob/master/README.md) uses [Tailwind](https://tailwindcss.com/) for simple css
 
 
 ## Getting Started
