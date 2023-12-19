@@ -21,7 +21,9 @@ function App() {
     {
       path: "/",
       element: <MainLayout />,
-      errorElement: <ErrorPage />,
+      errorElement: (<MainLayout>
+                      <ErrorPage />
+                    </MainLayout>),
       children: [
         {
           index: true,
