@@ -1,16 +1,21 @@
 import { useNavigate } from "react-router";
 import logo from "./../../assets/logo.svg"
 import { logout } from "./../../api/services/auth/auth.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useOutletContext } from "react-router-dom";
-
+import { getToken, getUsername } from "./../../api/services/auth/auth.js";
 // get setLoggedIn and loggedIn from props
 const NavBar = ({ loggedIn, setLoggedIn}) => {
 
     const navigate = useNavigate()
-
+    const [username, setUsername] = useState("")
 
     useEffect(() => {
+        const token = getToken()
+        if (token) {
+            setUsername(getUsername())
+
+        }
     }, [loggedIn])
 
     return (
@@ -19,7 +24,7 @@ const NavBar = ({ loggedIn, setLoggedIn}) => {
                 id="navlogo"
                 src={logo}
                 alt="Blogged logo"
-                className="w-12 hover:cursor-pointer"
+                className="w-6 m-2 hover:cursor-pointer"
                 onClick={() => {loggedIn ? navigate("/home") : navigate("/")}}
             />
             { loggedIn ? (
@@ -32,22 +37,22 @@ const NavBar = ({ loggedIn, setLoggedIn}) => {
                 </form>
                 ) : (<></>)
             }
+            <div id="navbuttons" className="flex felx-row justify-between  mr-2">
+
                 { !loggedIn ? (
-
-            <div id="navbuttons" className="">
-
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/login">Sign Up</NavLink>
-
-            </div>
+                <>
+                    <NavLink to="/auth/login" className="block m-2">Login</NavLink>
+                    <NavLink to="/auth/signup" className="block m-2">Sign Up</NavLink>
+                </>
                 ) : (
-                    <div id="navbuttons" className="">
-
-                        <NavLink to="/" onClick={() => logout(setLoggedIn)}>Logout</NavLink>
-
-                    </div>
+                <>
+                    <NavLink to="/" className="block m-2" >{ username }</NavLink>
+                    <NavLink to="/" className="block m-2">New Post</NavLink>
+                    <NavLink to="/" className="block m-2" onClick={() => logout(setLoggedIn)}>Logout</NavLink>
+                </>
                 )
                 }
+                </div>
         </div>
 
     );
