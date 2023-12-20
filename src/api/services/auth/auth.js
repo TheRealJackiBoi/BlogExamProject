@@ -94,4 +94,30 @@ export const register = async (username, password, callback) => {
     }
 }
 
+export const getUsername = () => {
 
+    const token = getToken()
+
+    if (!token) {
+        return ""
+    }
+
+    const payloadBase64 = token.split('.')[1]
+    const decodedClaims = JSON.parse(window.atob(payloadBase64))
+    const username = decodedClaims.username
+    return username
+}
+
+export const getRoles = () => {
+
+    const token = getToken()
+
+    if (!token) {
+        return null
+    }
+
+    const payloadBase64 = token.split('.')[1]
+    const decodedClaims = JSON.parse(window.atob(payloadBase64))
+    const roles = decodedClaims.roles
+    return roles
+}
