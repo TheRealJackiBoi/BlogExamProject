@@ -2,13 +2,13 @@ import axios from 'axios';
 import { BASE_URL } from './config.js'
 import { getToken } from './auth/auth.js'
 
-export const createPost = async (username, title, content, visibility) => {
+export const createPost = async (title, content, visibility, username) => {
 
     const data = {
-        "username": username,
         "title": title,
         "content": content,
-        "visibility": visibility
+        "visibility": visibility,
+        "username": username
     }
 
     try {
@@ -17,7 +17,8 @@ export const createPost = async (username, title, content, visibility) => {
         {
             withCredentials: true,
             headers: {
-                'Authorization': `Bearer ${getToken()}`,
+                "Content-type": "application/json",
+                Authorization: `Bearer ${getToken()}`,
             },
         })
         console.log('Post created:', response.data);

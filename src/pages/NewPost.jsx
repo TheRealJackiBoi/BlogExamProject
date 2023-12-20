@@ -18,9 +18,9 @@ export function NewPost({ closeModal, showModal }) {
 
     const username = getUsername();
     console.log('Username:', username);
-    const visibility = 'public';
+    const visibility = 'PUBLIC';
 
-    createPost(formData.title, formData.postbody, username, visibility);
+    createPost(formData.title, formData.postbody, visibility, username);
 
     formData.title = '';
     formData.postbody = '';
