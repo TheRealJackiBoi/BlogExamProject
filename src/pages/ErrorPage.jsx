@@ -43,6 +43,8 @@ export default function ErrorPage() {
         {error && error.status === 404 && (
           <p className="mb-5">{getRandomMessage()}</p>
         )}
+        {/* Display the fallback message if error is undefined */}
+        {!error && <p className="mb-5">Something went wrong. Please try again later.</p>}
         <p>
           <Link to="/">
             Navigate to <u>safety</u>
