@@ -17,13 +17,11 @@ export const createPost = async (username, title, content, visibility) => {
         {
             withCredentials: true,
             headers: {
-                "Content-Type": "application/json",
-                'Accept': 'application/json',
-                Authorization: `Bearer ${getToken()}`,
+                'Authorization': `Bearer ${getToken()}`,
             },
         })
         console.log('Post created:', response.data);
-
+        return response.data;
     } 
     catch (error) {
         console.error(error)
