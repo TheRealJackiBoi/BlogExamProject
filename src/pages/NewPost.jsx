@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { getUsername } from '../api/services/auth/auth';
 import { createPost } from '../api/services/posts';
 
+const enumVisibility = ['PUBLIC', 'PRIVATE', 'FRIENDS', 'ARCHIVED'];
 
 export function NewPost({ closeModal, showModal }) {
   const [formData, setFormData] = useState({
     title: '',
     postbody: '',
   });
+  const [visibility, setVisibility] = useState('');
 
   const handlePostSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +20,6 @@ export function NewPost({ closeModal, showModal }) {
 
     const username = getUsername();
     console.log('Username:', username);
-    const visibility = 'PUBLIC';
 
     createPost(formData.title, formData.postbody, visibility, username);
 
@@ -33,6 +34,10 @@ export function NewPost({ closeModal, showModal }) {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleVisibilityChange = (event) => {
+    setVisibility(event.target.value);
   };
 
   return (
@@ -59,7 +64,9 @@ export function NewPost({ closeModal, showModal }) {
                 />
               </div>
               <div>
-                <label htmlFor="postbody" className="dat-black">Content</label>
+                <label htmlFor="postbody" className="dat-black">
+                  Content
+                </label>
                 <textarea
                   type="text"
                   name="postbody"
@@ -69,6 +76,25 @@ export function NewPost({ closeModal, showModal }) {
                   className="w-full h-24 border border-gray-300 rounded p-2 resize-none focus:outline-none"
                 />
               </div>
+
+              <div className="my-4">
+                <label htmlFor="visibilitySelect" className="dat-black mx-3">
+                  Visibility
+                </label>
+                <select
+                  id="visibilitySelect"
+                  className="form-select"
+                  value={visibility}
+                  onChange={handleVisibilityChange}
+                >
+                  {enumVisibility.map((visibility) => (
+                    <option key={visibility} value={visibility}>
+                      {visibility}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="flex justify-between mt-6">
                 <button
                   onClick={closeModal}
@@ -76,7 +102,7 @@ export function NewPost({ closeModal, showModal }) {
                 >
                   Cancel
                 </button>
-                
+
                 <button
                   type="submit"
                   className="bg-dat-blue text-dat-white px-4 py-2 rounded-full "
