@@ -12,10 +12,10 @@ import Login from './pages/auth/Login.jsx';
 import Signup from './pages/auth/Signup.jsx';
 import Home from './pages/Home.jsx';
 import MainLayout from './pages/MainLayout.jsx';
+import PostEdit, { loader as postEditLoadder } from './pages/PostEdit.jsx';
 
 function App() {
-
-  
+ 
 
   const router = createBrowserRouter([
     {
@@ -46,6 +46,17 @@ function App() {
           path: "home",
           element: <Home />,
         },
+        {
+          path: "posts/",
+          children: [
+            
+            {
+              path: ":id/edit",
+              element: <PostEdit />,
+              loader: postEditLoadder,
+            },
+          ],
+        }
       ]
     },
   ]);
