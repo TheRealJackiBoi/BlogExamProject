@@ -77,8 +77,11 @@ export function NewPost({ closeModal, showModal }) {
                 />
               </div>
 
-              <div className="my-4">
-                <label htmlFor="visibilitySelect" className="dat-black mx-3">
+              <div className="my-4 d-flex flex-column items-center">
+                <label
+                  htmlFor="visibilitySelect"
+                  className="dat-black mx-3 my-2"
+                >
                   Visibility
                 </label>
                 <select
