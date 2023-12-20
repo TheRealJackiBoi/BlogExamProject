@@ -3,7 +3,9 @@ import './App.css'
 
 import {
   createBrowserRouter,
+  Route,
   RouterProvider,
+  useLocation,
 } from "react-router-dom";
 
 import ErrorPage from './pages/ErrorPage.jsx';
@@ -12,10 +14,9 @@ import Login from './pages/auth/Login.jsx';
 import Signup from './pages/auth/Signup.jsx';
 import Home from './pages/Home.jsx';
 import MainLayout from './pages/MainLayout.jsx';
+import NewPost from './pages/NewPost.jsx';
 
 function App() {
-
-  
 
   const router = createBrowserRouter([
     {
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <RouterProvider router={router} />
+    
   )
 }
 

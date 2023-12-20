@@ -1,15 +1,15 @@
-import { useNavigate } from "react-router";
 import logo from "./../../assets/logo.svg"
 import { logout } from "./../../api/services/auth/auth.js";
 import { useEffect, useState } from "react";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink, useOutletContext, useNavigate } from "react-router-dom";
 import { getToken, getUsername } from "./../../api/services/auth/auth.js";
 import {menu3} from 'react-icons-kit/icomoon/menu3'
 import { Icon } from "react-icons-kit";
 
 
 // get setLoggedIn and loggedIn from props
-const NavBar = ({ loggedIn, setLoggedIn }) => {
+const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
+    
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -36,7 +36,7 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
 
     }, [loggedIn]);
 
-
+    
     return (
         <div className="flex justify-between items-center w-screen bg-dat-olive">
             <img
@@ -96,7 +96,7 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
                     </div>
                     {isSmallScreen ? (
                         <div className="flex flex-col px-2 py-1">
-                        <NavLink to="/" className="">
+                        <NavLink to="#" onClick={openModal} className="">
                             New Post
                         </NavLink>
                         <NavLink to="/" className="">
@@ -106,7 +106,7 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
                     ) : 
                     (
                         <>
-                        <NavLink to="/" className="mx-2 my-1">
+                        <NavLink to="#" onClick={openModal} className="mx-2 my-1">
                             New Post
                         </NavLink>
                         <NavLink to="/" className="mx-2 my-1">
