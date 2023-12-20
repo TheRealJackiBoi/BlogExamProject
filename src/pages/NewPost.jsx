@@ -1,7 +1,7 @@
 export function NewPost({ closeModal, showModal }) {
   
   const handlePostSubmit = (e) => {
-    
+
   }
   
   return (
@@ -34,10 +34,10 @@ export function NewPost({ closeModal, showModal }) {
                 type="text"
                 name="postbody"
                 placeholder="What is on your mind today?"
-                className="w-full border border-gray-300 rounded p-2 resize-none focus:outline-none"
+                className="w-full h-24 border border-gray-300 rounded p-2 resize-none focus:outline-none"
                 />
             </div>
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-3">
               <button onClick={{}} className="bg-dat-olive text-dat-black px-4 py-2 rounded">
                 Post to Blogged
               </button>
