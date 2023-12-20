@@ -1,4 +1,3 @@
-
 import './App.css'
 
 import {
@@ -12,15 +11,9 @@ import Login from './pages/auth/Login.jsx';
 import Signup from './pages/auth/Signup.jsx';
 import Home from './pages/Home.jsx';
 import MainLayout from './pages/MainLayout.jsx';
+import { postsLoader } from './api/services/posts.js';
 
 function App() {
-
-  const postsLoader = async () => {
-    const response = await fetch("http://localhost:7007/api/posts");
-    return response.json();
-  };
-
-  
 
   const router = createBrowserRouter([
     {
