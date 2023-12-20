@@ -43,16 +43,15 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
                 id="navlogo"
                 src={logo}
                 alt="Blogged logo"
-                className="w-6 m-2 hover:cursor-pointer"
+                className="w-6 m-2 hover:cursor-pointer flex-shrink-0"
                 onClick={() => {
                     loggedIn ? navigate("/home") : navigate("/");
                 }}
             />
-
-                <form id="searchprofiles" className="flex items-center">
+                <form id="searchprofiles" className="flex max-w-60 absolute left-1/2 -translate-x-1/2">
                     <input
                         type="text"
-                        className="bg-dat-white border border-dat-black pl-2 rounded-full w-60 h-8 shadow-md shadow-gray-400"
+                        className="bg-dat-white border border-dat-black pl-2 rounded-full  w-full h-8 shadow-md shadow-gray-400"
                         placeholder="Search..."
                     />
                 </form>
@@ -69,7 +68,7 @@ const NavBar = ({ loggedIn, setLoggedIn }) => {
                 id="navbuttons"
                 className={`${
                     isSmallScreen ? (!burgerMenuOpen ? "hidden" : " bg-dat-olive absolute top-12 right-1 flex flex-col z-10 divide-y divide-dat-white rounded-lg shadow min-w-[8rem] ") : "flex flex-row justify-between items-end mr-2"
-                } `}
+                } flex-shrink-0`}
             >
                 {!loggedIn ? ( isSmallScreen ? (<>
                     <NavLink to="/auth/login" className="px-2 py-1">
