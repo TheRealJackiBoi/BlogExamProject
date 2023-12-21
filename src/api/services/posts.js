@@ -2,14 +2,13 @@ import axios from "axios";
 import { BASE_URL } from "./config";
 import { getToken } from "./auth/auth";
 
-const userToken = getToken();
-
 export const postsLoader = async () => {
   try {
+    const token = getToken();
     const response = await axios.get(`${BASE_URL}/posts`, {
       withCredentials: true,
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -18,11 +17,12 @@ export const postsLoader = async () => {
   }
 };
 
-export const getAllPosts = async () => {
+export const getAllPosts = async (setPosts) => {
+  const token = getToken();
   try {
     const response = await axios.get(`${BASE_URL}/posts`, {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -37,19 +37,24 @@ export const getAllPosts = async () => {
   }
 };
 
-export const handleLikeClick = async (postId) => {
+export const handleLikeClick = async (postId, currentLikes, updateLikes) => {
   try {
-    const response = await axios.put(`${BASE_URL}/posts/${postId}/likes`, {
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
-    if (response.ok) {
-      const updatedPosts = response.data.map((post) =>
-        post.id === postId ? { ...post, likes: post.likes + 1 } : post
-      );
-      setPosts(updatedPosts);
+    const token = getToken();
+    const response = await axios.put(
+      `${BASE_URL}/posts/${postId}/likes`,
+      {},
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      const updatedLikes = currentLikes + 1;
+      console.log(`Likes updated for post ${postId}. New count: ${updatedLikes}`);
+      updateLikes(postId, updatedLikes);
     } else {
       console.error("Failed to update likes");
     }
