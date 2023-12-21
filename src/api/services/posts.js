@@ -2,21 +2,6 @@ import axios from "axios";
 import { BASE_URL } from "./config";
 import { getToken } from "./auth/auth";
 
-export const postsLoader = async () => {
-  try {
-    const token = getToken();
-    const response = await axios.get(`${BASE_URL}/posts`, {
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-  }
-};
-
 export const getAllPosts = async (setPosts) => {
   const token = getToken();
   try {

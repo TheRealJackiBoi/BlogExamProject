@@ -12,7 +12,7 @@ import Signup from './pages/auth/Signup.jsx';
 import Home from './pages/Home.jsx';
 import MainLayout from './pages/MainLayout.jsx';
 import PostEdit, { loader as postEditLoadder } from './pages/PostEdit.jsx';
-import { postsLoader } from './api/services/posts.js';
+import { postsLoader } from './pages/Home.jsx';
 
 function App() {
 
