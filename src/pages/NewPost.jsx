@@ -4,7 +4,7 @@ import { createPost } from '../api/services/posts';
 
 const enumVisibility = ['PUBLIC', 'PRIVATE', 'FRIENDS', 'ARCHIVED'];
 
-export function NewPost({ closeModal, showModal }) {
+export function NewPost({ closeModal, showModal, setPosts }) {
   const [formData, setFormData] = useState({
     title: '',
     postbody: '',
@@ -26,6 +26,7 @@ export function NewPost({ closeModal, showModal }) {
     formData.title = '';
     formData.postbody = '';
     closeModal();
+    setPosts(prevPosts => [...prevPosts, {title: formData.title, postbody: formData.postbody, visibility: visibility, username: username}])
   };
 
   const handleChange = (e) => {

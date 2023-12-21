@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../api/services/config";
 import { getToken } from "../api/services/auth/auth";
@@ -19,17 +19,27 @@ export const postsLoader = async () => {
 
 
 const Home = () => {
-  const [ posts, setPosts ] = useState(useLoaderData())
+  const { posts } = useOutletContext();
+  
+  const [thisPosts, setThisPosts] = useState(useLoaderData())
 
   const handleLikeClickUpdate = async () => {
-    setPosts(await postsLoader())
+    updateThisPosts()
     console.log("handleLikeClickUpdate")
   }
+
+  const updateThisPosts = async () => {
+    setThisPosts(await postsLoader())
+  }
+
+  useEffect(() => {
+    updateThisPosts()
+  }, [posts])
 
   return (
     <div className="flex flex-col items-center justify-center max-w-prose px-4  h-fit mt-10 mx-auto">
       <h1 className="mb-4 text-3xl font-bold">Blogged community says...</h1>
-      {posts ? posts.map((post, index) => (
+      {thisPosts ? thisPosts.map((post, index) => (
         <Post post={post} key={index} handleLikeClickUpdate={handleLikeClickUpdate} />
       )) : (<div>Loading...</div>)}
     </div>
