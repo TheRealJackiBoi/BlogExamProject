@@ -1,10 +1,23 @@
-import { Icon } from "react-icons-kit";
-import { heart } from "react-icons-kit/icomoon/heart";
-import { handleLikeClick } from "../../api/services/posts";
 import { useLoaderData } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Like from "./Like";
 
 const Post = () => {
-  const posts = useLoaderData();
+  const initialPosts = useLoaderData();
+  const [posts, setPosts] = useState(initialPosts);
+
+  const updateLikes = (postId, updatedLikes) => {
+    const updatedPosts = posts.map((post) =>
+      post.id === postId ? { ...post, likes: updatedLikes } : post
+    );
+    setPosts(updatedPosts);
+  };
+
+  const formatDateString = (dateString) => {
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
+  };
+
 
   return (
     <div className="flex flex-col items-center justify-center h-fit mt-10 w-1/4 mx-auto">
@@ -20,7 +33,7 @@ const Post = () => {
             </h3>
             {/* Date */}
             <div className="absolute top-16 text-xs text-gray-500">
-              {post.formattedCreatedAt}
+              {formatDateString(post.createdAt.slice(0,10))}
             </div>
 
             {/* Read more */}
@@ -29,14 +42,7 @@ const Post = () => {
             </div>
 
             {/* Like */}
-            <div
-              className="absolute bottom-4 text-gray-500 cursor-pointer"
-              onClick={() => handleLikeClick(post.id)}>
-              <Icon icon={heart} size={14} />
-            </div>
-            <div className="absolute bottom-4 left-14 text-sm text-gray-500">
-              {post.likes}
-            </div>
+            <Like postId={post.id} likes={post.likes} updateLikes={updateLikes} />
 
             {/* Input Content */}
             <div className="bg-dat-white text-dat-black p-4 rounded shadow-md text-left relative">
