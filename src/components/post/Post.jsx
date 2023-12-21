@@ -2,16 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Like from "./Like";
 
-const Post = () => {
-  const initialPosts = useLoaderData();
-  const [posts, setPosts] = useState(initialPosts);
-
-  const updateLikes = (postId, updatedLikes) => {
-    const updatedPosts = posts.map((post) =>
-      post.id === postId ? { ...post, likes: updatedLikes } : post
-    );
-    setPosts(updatedPosts);
-  };
+const Post = ({ post, handleLikeClickUpdate }) => {
 
   const formatDateString = (dateString) => {
     const [year, month, day] = dateString.split("-");
@@ -19,12 +10,8 @@ const Post = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-fit mt-10 w-1/4 mx-auto">
-      <h1 className="mb-4 text-3xl font-bold">Blogged community says...</h1>
-
-      {posts.map((post, index) => (
-        <div key={index} className="mb-4">
-          <section className="bg-dat-olive p-10 text-center relative">
+        
+          <section className="bg-dat-olive p-10 text-center relative w-full my-4">
             <h3
               className="mb-3 text-xl"
               style={{ position: "relative", top: "-16px" }}>
@@ -50,7 +37,7 @@ const Post = () => {
             <Like
               postId={post.id}
               likes={post.likes}
-              updateLikes={updateLikes}
+              handleLikeClickUpdate={handleLikeClickUpdate}
             />
 
             {/* Input Content */}
@@ -58,9 +45,7 @@ const Post = () => {
               <p>{post.content}</p>
             </div>
           </section>
-        </div>
-      ))}
-    </div>
+    
   );
 };
 

@@ -7,7 +7,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   
-  const [loggedIn, setLoggedIn] = useOutletContext();
+  const {loggedIn, setLoggedIn} = useOutletContext();
 
  
 
@@ -44,7 +44,7 @@ const Login = () => {
     if (getToken()) {
       navigate("/home")
     }
-  });
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center">

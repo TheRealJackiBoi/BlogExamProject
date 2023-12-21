@@ -1,40 +1,48 @@
 import React, { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../api/services/config";
 import { getToken } from "../api/services/auth/auth";
+import { getAllPosts, handleLikeClick } from "../api/services/posts";
 import Post from "../components/post/Post";
 
 export const postsLoader = async () => {
 
-  try {
-    const token = getToken();
-    const response = await axios.get(`${BASE_URL}/posts`, {
-      
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching posts:", error);
+  const posts = await getAllPosts();
+  if (posts) {
+    return posts;
+  }
+  else {
+    return null;
   }
 };
 
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
-  const postsFromLoader = useLoaderData();
+  const { posts } = useOutletContext();
+  
+  const [thisPosts, setThisPosts] = useState(useLoaderData())
+
+  const handleLikeClickUpdate = async () => {
+    updateThisPosts()
+    console.log("handleLikeClickUpdate")
+  }
+
+  const updateThisPosts = async () => {
+    setThisPosts(await postsLoader())
+  }
 
   useEffect(() => {
-    setPosts(postsFromLoader);
-  }, [postsFromLoader]);
+    updateThisPosts()
+  }, [posts])
 
   return (
-    <>
-      <Post />
-    </>
+    <div className="flex flex-col items-center justify-center max-w-prose px-4  h-fit mt-10 mx-auto">
+      <h1 className="mb-4 text-3xl font-bold">Blogged community says...</h1>
+      {thisPosts ? thisPosts.map((post, index) => (
+        <Post post={post} key={index} handleLikeClickUpdate={handleLikeClickUpdate} />
+      )) : (<div>Loading...</div>)}
+    </div>
   );
 };
 

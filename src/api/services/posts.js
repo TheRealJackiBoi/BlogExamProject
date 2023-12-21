@@ -2,18 +2,41 @@ import axios from "axios";
 import { BASE_URL } from "./config";
 import { getToken } from "./auth/auth";
 
-export const getAllPosts = async (setPosts) => {
+export const getPostById = async (id) => {
+    const token = getToken();
+    try {
+      const response = await axios.get(`${BASE_URL}/posts/${id}`, {
+        withCredentials: true,
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response);
+      if (response.status === 200) {
+        const post = await response.data;
+        return post;
+      } else {
+        console.error("Failed to fetch posts");
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+export const getAllPosts = async () => {
   const token = getToken();
   try {
     const response = await axios.get(`${BASE_URL}/posts`, {
-      headers: {
+        withCredentials: true,
+        headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       const posts = await response.data;
-      setPosts(posts);
+      return posts;
     } else {
       console.error("Failed to fetch posts");
     }
@@ -22,7 +45,7 @@ export const getAllPosts = async (setPosts) => {
   }
 };
 
-export const handleLikeClick = async (postId, currentLikes, updateLikes) => {
+export const handleLikeClick = async (postId) => {
   try {
     const token = getToken();
     const response = await axios.put(
@@ -37,11 +60,10 @@ export const handleLikeClick = async (postId, currentLikes, updateLikes) => {
     );
 
     if (response.status === 200) {
-      const updatedLikes = currentLikes + 1;
       console.log(
-        `Likes updated for post ${postId}. New count: ${updatedLikes}`
+        `Likes updated for post ${postId}`
       );
-      updateLikes(postId, updatedLikes);
+      return response;
     } else {
       console.error("Failed to update likes");
     }
@@ -91,7 +113,7 @@ export const updatePost = async (post) => {
             },
         })
         console.log('Post updated:', response.data);
-        return response.data;
+        return response;
     } 
     catch (error) {
         console.error(error)
