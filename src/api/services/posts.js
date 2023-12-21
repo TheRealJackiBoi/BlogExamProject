@@ -53,7 +53,9 @@ export const handleLikeClick = async (postId, currentLikes, updateLikes) => {
 
     if (response.status === 200) {
       const updatedLikes = currentLikes + 1;
-      console.log(`Likes updated for post ${postId}. New count: ${updatedLikes}`);
+      console.log(
+        `Likes updated for post ${postId}. New count: ${updatedLikes}`
+      );
       updateLikes(postId, updatedLikes);
     } else {
       console.error("Failed to update likes");
