@@ -3,48 +3,20 @@ import zxcvbn from "zxcvbn";
 import { Icon } from "react-icons-kit";
 import { withLine } from "react-icons-kit/entypo/withLine";
 import { eye } from "react-icons-kit/entypo/eye";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useNavigate, useOutletContext } from "react-router-dom";
 import { register } from "../../api/services/auth/auth";
 
 
-
-export const action = async ({ request }) => {
-
-  if (request.method !== "POST") {
-    alert("Not allowed")
-    return redirect(`/auth/signup`);
-  }
-
-  const data = await request.formData();
-  console.log(await data)
-
-  if (data.get("username") === "" || data.get("password") === "" || data.get("repeat-password") === "" || data.get("security-question") === "") {
-    alert("Please fill out all fields")
-    return redirect(`/auth/signup`);
-  }
-
-  const username = await data.get("username");
-  const password = await data.get("password");
-
-  let authorized = false
-  const setAuthorized = (value) => {
-    authorized = value
-  }
-
-  await register(username, password, setAuthorized)
-  if (authorized) {
-    return redirect("/home")
-  }
-
-  alert("Couldn't create your account")
-  return redirect("/auth/signup")
-}
-
 const SignUp = () => {
+  const navigate = useNavigate();
+  const {loggedIn, setLoggedIn} = useOutletContext();
+
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [securityQuestion, setSecurityQuestion] = useState("");
+
   // Could potentially flip this to false for clarity, but I think it makes more sense
   // to have a big if statement rather than a big else statement
   const [passwordMatch, setPasswordMatch] = useState(true);
@@ -63,10 +35,35 @@ const SignUp = () => {
     }
   };
 
-  const handleSignup = () => {
+  const handleSignup = async (e) => {
     // Check if passwords are matching
     if (password === repeatPassword && formComplete) {
       // Add backend logic to create a new user
+      
+      console.log(username, password, repeatPassword, securityQuestion)
+
+      if (username === "" || password === "" || repeatPassword === "" || securityQuestion === "") {
+        alert("Please fill out all fields")
+        navigate(`/auth/signup`);
+      }
+
+      const response = await register(username, password)
+      if (response.status === 201) {
+        console.log(`${username} has been created`)
+        setLoggedIn(true)
+        navigate("/home")
+        return
+      } 
+      else if (response.status === 400) {
+        alert("Couldn't create your account")
+        navigate(`/auth/signup`);
+        return 
+      }
+      else {
+        alert("Something went wrong")
+        navigate(`/auth/signup`);
+        return
+      }
     } else {
       setPasswordMatch(false);
       setFormComplete(
@@ -114,7 +111,7 @@ const SignUp = () => {
           <h3 className="text-sm mb-5">
             We are excited to have you <br></br> join the Blogged community!
           </h3>
-          <Form action="/auth/signup" method="post" className="flex flex-col items-center">
+          <Form className="flex flex-col items-center">
             <label className="mb-2">
               <div className="text-left">Username</div>
               <input
@@ -146,7 +143,6 @@ const SignUp = () => {
                   onChange={(e) => {
                     setPassword(e.target.value);
                     const result = zxcvbn(e.target.value);
-                    console.log(result);
                     const strength = result.score;
                     console.log('Strength:', strength);
                     setPasswordStrength(strength);
