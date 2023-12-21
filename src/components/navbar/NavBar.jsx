@@ -22,7 +22,7 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
         }
 
         const handleResize = () => {
-            setIsSmallScreen(window.innerWidth <= 768);
+            setIsSmallScreen(window.innerWidth <= 940);
         };
 
         // Initial check for screen size

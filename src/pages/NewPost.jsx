@@ -9,7 +9,7 @@ export function NewPost({ closeModal, showModal }) {
     title: '',
     postbody: '',
   });
-  const [visibility, setVisibility] = useState('');
+  const [visibility, setVisibility] = useState(enumVisibility[0]);
 
   const handlePostSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ export function NewPost({ closeModal, showModal }) {
 
     const username = getUsername();
     console.log('Username:', username);
-
+    console.log('Visibility:', visibility);
     createPost(formData.title, formData.postbody, visibility, username);
 
     formData.title = '';
@@ -39,6 +39,13 @@ export function NewPost({ closeModal, showModal }) {
   const handleVisibilityChange = (event) => {
     setVisibility(event.target.value);
   };
+
+  const handleCancel = () => {
+    setVisibility(enumVisibility[0]);
+    formData.title = '';
+    formData.postbody = '';
+    closeModal();
+  }
 
   return (
     <>
@@ -100,7 +107,7 @@ export function NewPost({ closeModal, showModal }) {
 
               <div className="flex justify-between mt-6">
                 <button
-                  onClick={closeModal}
+                  onClick={handleCancel}
                   className="text-sm bg-dat-red text-dat-white px-2 py-1.5 rounded-full "
                 >
                   Cancel
