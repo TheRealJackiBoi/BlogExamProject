@@ -28,3 +28,23 @@ export const createPost = async (title, content, visibility, username) => {
         console.error(error)
     }
 }
+
+export const updatePost = async (post) => {
+
+    try {
+    const response = await axios.put(`${BASE_URL}/posts/${post.id}`, 
+        post, 
+        {
+            withCredentials: true,
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${getToken()}`,
+            },
+        })
+        console.log('Post updated:', response.data);
+        return response.data;
+    } 
+    catch (error) {
+        console.error(error)
+    }
+}
