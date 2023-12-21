@@ -18,7 +18,6 @@ const Post = () => {
     return `${day}-${month}-${year}`;
   };
 
-
   return (
     <div className="flex flex-col items-center justify-center h-fit mt-10 w-1/4 mx-auto">
       <h1 className="mb-4 text-3xl font-bold">Blogged community says...</h1>
@@ -33,7 +32,7 @@ const Post = () => {
             </h3>
             {/* Date */}
             <div className="absolute top-16 text-xs text-gray-500">
-              {formatDateString(post.createdAt.slice(0,10))}
+              {formatDateString(post.createdAt.slice(0, 10))}
             </div>
 
             {/* Read more */}
@@ -41,8 +40,18 @@ const Post = () => {
               Read more
             </div>
 
+            {/* User
+            maybe add a link to their userprofile on click? */}
+            <div className="absolute top-16 right-10 text-xs text-gray-500">
+              {post.username}
+            </div>
+
             {/* Like */}
-            <Like postId={post.id} likes={post.likes} updateLikes={updateLikes} />
+            <Like
+              postId={post.id}
+              likes={post.likes}
+              updateLikes={updateLikes}
+            />
 
             {/* Input Content */}
             <div className="bg-dat-white text-dat-black p-4 rounded shadow-md text-left relative">
