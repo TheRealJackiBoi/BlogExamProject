@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { getUsername } from "../api/services/auth/auth";
-
+import { updatePost } from "../api/services/posts";
 
 export const loader = async ({ params }) => {
 
@@ -13,9 +13,7 @@ export const loader = async ({ params }) => {
         "title": "Post Title",
         "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Necsagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae.",
         "visibility": "public",
-        "username": "username",
-        "createdAt": "2021-04-30T23:23:23.000Z",
-        "updatedAt": "2021-04-30T23:23:23.000Z"
+        "username": "julius",
     }
     //check if post exists
 }
@@ -50,12 +48,14 @@ const PostEdit = () => {
         e.preventDefault();
         const data = new FormData(e.target);
         const post = {
+            "id": id,
             "title": data.get("title"), 
             "content": data.get("content"), 
-            "visibility": data.get("visibility")
+            "visibility": data.get("visibility"),
+            "username": "jslam@oulund.dk"
         }
         setIsPending(true);
-        await updatePost(id, post);
+        await updatePost(post);
         setIsPending(false);
         navigate(`/posts/${id}`);
     };
@@ -100,10 +100,10 @@ const PostEdit = () => {
             <select name="visibility" defaultValue="public" 
                 className="bg-dat-white text-dat-black pl-2 p-2 rounded shadow-md shadow-gray-400 mb-4"
             >
-                <option value="public" >Public</option>
-                <option value="private">Private</option>
-                <option value="friends">Friends</option>
-                <option value="archived">Archived</option>
+                <option value="PUBLIC" >Public</option>
+                <option value="PRIVATE">Private</option>
+                <option value="FRIENDS">Friends</option>
+                <option value="ARCHIVED">Archived</option>
             </select>
             <button type="submit" className="rounded-full mt-12 bg-dat-blue text-2xl mx-auto py-4 px-8 text-dat-white">Update Post</button>
             </form>
