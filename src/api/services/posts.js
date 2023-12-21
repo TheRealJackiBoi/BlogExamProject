@@ -1,8 +1,10 @@
 import axios from "axios";
-import { getToken as userToken } from "./auth/auth";
 import { BASE_URL } from "./config";
+import { getToken } from "./auth/auth";
 
-export const postsLoader = async (userToken) => {
+const userToken = getToken();
+
+export const postsLoader = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/posts`, {
       withCredentials: true,
@@ -13,16 +15,20 @@ export const postsLoader = async (userToken) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching posts:", error);
-    throw error;
   }
 };
 
 export const getAllPosts = async () => {
   try {
-    const response = await axios.get("http://localhost:7070/api/posts");
+    const response = await axios.get(`${BASE_URL}/posts`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+
     if (response.ok) {
-      const posts = await response.json();
-      setPosts(posts).Object.values(posts);
+      const posts = await response.data;
+      setPosts(posts);
     } else {
       console.error("Failed to fetch posts");
     }
@@ -33,14 +39,14 @@ export const getAllPosts = async () => {
 
 export const handleLikeClick = async (postId) => {
   try {
-    const response = await axios.get(
-      `http://localhost:7007/api/posts/${postId}/likes`,
-      {
-        method: "PUT",
-      }
-    );
+    const response = await axios.put(`${BASE_URL}/posts/${postId}/likes`, {
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
     if (response.ok) {
-      const updatedPosts = postsArray.map((post) =>
+      const updatedPosts = response.data.map((post) =>
         post.id === postId ? { ...post, likes: post.likes + 1 } : post
       );
       setPosts(updatedPosts);
