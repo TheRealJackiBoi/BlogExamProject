@@ -1,6 +1,7 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { getUsername } from "../api/services/auth/auth";
 
 
 export const loader = async ({ params }) => {
@@ -16,7 +17,7 @@ export const loader = async ({ params }) => {
         "createdAt": "2021-04-30T23:23:23.000Z",
         "updatedAt": "2021-04-30T23:23:23.000Z"
     }
-
+    //check if post exists
 }
 
 
@@ -30,6 +31,21 @@ const PostEdit = () => {
     const [id, setId] = useState(post.id);
     
     
+    useEffect(() => {
+        const username = getUsername();
+        if (username) {
+            if (!post) {
+                if (username !== post.username) {
+                    navigate(-1);
+                }
+            }
+        }
+        else {
+            alert("You must be logged in to edit a post.");
+            navigate("/auth/login");
+        }
+    }, [post]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData(e.target);
@@ -45,7 +61,7 @@ const PostEdit = () => {
     };
     
     const onCancel = () => {
-        navigate(`/home`);
+        navigate(-1);
     };
 
     return (
