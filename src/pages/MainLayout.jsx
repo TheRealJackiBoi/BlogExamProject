@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Route } from 'react-router-dom'
 import NavBar from '../components/navbar/NavBar.jsx'
 import { getToken } from '../api/services/auth/auth.js';
+import NewPost from './NewPost.jsx';
 
 
 const MainLayout = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false)
+
+    const [showModal, setShowModal] = useState(false);
+    
 
   useEffect(() => {
     if (getToken()) {
@@ -13,11 +17,23 @@ const MainLayout = ({ children }) => {
     }
   }, [])
 
+  const openModal = () => {
+    setShowModal(true);
+  }
+
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
 
   return (
     <>
-        <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+        <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} openModal={openModal} />
         { children ?? <Outlet context={[loggedIn, setLoggedIn]} /> }
+
+        {/* Conditionally render the modal */}
+        <NewPost showModal={showModal} closeModal={closeModal} /> 
+
     </>
   )
 }

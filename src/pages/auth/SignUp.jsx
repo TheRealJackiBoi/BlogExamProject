@@ -108,7 +108,7 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <section className="h-fit bg-dat-white shadow-2xl px-10 py-10">
+      <section className="h-fit bg-dat-white shadow-2xl px-10 py-10 mt-16">
         <div className="text-center">
           <h1 className="text-1xl font-bold mb-5">Sign up</h1>
           <h3 className="text-sm mb-5">

@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <section className="h-fit bg-dat-white shadow-2xl px-10 py-10 text-center">
+      <section className="h-fit bg-dat-white shadow-2xl px-10 py-10 mt-16 text-center">
           <h1 className="text-1xl font-bold mb-10">Login</h1>
           <form className="flex flex-col items-center" onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}}>
             <label className="mb-2">

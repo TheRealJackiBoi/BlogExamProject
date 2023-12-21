@@ -11,6 +11,7 @@ import Login from './pages/auth/Login.jsx';
 import Signup from './pages/auth/Signup.jsx';
 import Home from './pages/Home.jsx';
 import MainLayout from './pages/MainLayout.jsx';
+import PostEdit, { loader as postEditLoadder } from './pages/PostEdit.jsx';
 import { postsLoader } from './api/services/posts.js';
 
 function App() {
@@ -45,6 +46,17 @@ function App() {
           element: <Home />,
           loader: postsLoader,
         },
+        {
+          path: "posts/",
+          children: [
+            
+            {
+              path: ":id/edit",
+              element: <PostEdit />,
+              loader: postEditLoadder,
+            },
+          ],
+        }
       ]
     },
   ]);
