@@ -1,96 +1,40 @@
-import React, { useState } from "react";
-import { Icon } from "react-icons-kit";
-import { heart } from "react-icons-kit/icomoon/heart";
+import React, { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../api/services/config";
+import { getToken } from "../api/services/auth/auth";
+import Post from "../components/post/Post";
+
+export const postsLoader = async () => {
+
+  try {
+    const token = getToken();
+    const response = await axios.get(`${BASE_URL}/posts`, {
+      
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
+
 
 const Home = () => {
-  // Like functionality
-  const [likeCount, setLikeCount] = useState(0);
+  const [posts, setPosts] = useState([]);
+  const postsFromLoader = useLoaderData();
 
-  const handleLikeClick = () => {
-    setLikeCount(likeCount + 1);
-  };
+  useEffect(() => {
+    setPosts(postsFromLoader);
+  }, [postsFromLoader]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-1/4 mx-auto">
-      <h1 className="mb-4 text-3xl font-bold">Blogged community says...</h1>
-
-      <div className="mb-4">
-        <section className="h-fit bg-dat-olive p-10 text-center relative">
-          <h3
-            className="mb-3 text-xl"
-            style={{ position: "relative", top: "-16px" }}>
-            Lorem Ipsum
-          </h3>
-          {/* Date */}
-          <div className="absolute top-16 text-xs text-gray-500">
-            18-12-2023
-          </div>
-
-          {/* Read more */}
-          <div className="absolute bottom-4 right-10 text-xs text-gray-500 cursor-pointer">
-            Read more
-          </div>
-
-          {/* Like */}
-          <div
-            className="absolute bottom-4 text-gray-500 cursor-pointer"
-            onClick={handleLikeClick}>
-            <Icon icon={heart} size={14} />
-          </div>
-          <div className="absolute bottom-4 left-14 text-sm text-gray-500">
-            {likeCount}
-          </div>
-          {/* Input Content */}
-          <div className="bg-dat-white text-dat-black p-4 rounded shadow-md text-left relative">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Nec
-              sagittis aliquam malesuada bibendum arcu vitae elementum curabitur
-              vitae.
-            </p>
-          </div>
-        </section>
-      </div>
-
-      {/* Testing how it looks with a second post */}
-      <div className="mb-4">
-        <section className="h-fit bg-dat-olive p-10 text-center relative">
-          <h3
-            className="mb-3 text-xl"
-            style={{ position: "relative", top: "-16px" }}>
-            Lorem Ipsum
-          </h3>
-          {/* Date */}
-          <div className="absolute top-16 text-xs text-gray-500">
-            18-12-2023
-          </div>
-
-          {/* Read more */}
-          <div className="absolute bottom-4 right-10 text-xs text-gray-500 cursor-pointer">
-            Read more
-          </div>
-
-          {/* Like */}
-          <div
-            className="absolute bottom-4 text-gray-500 cursor-pointer"
-            onClick={handleLikeClick}>
-            <Icon icon={heart} size={14} />
-          </div>
-          <div className="absolute bottom-4 left-14 text-sm text-gray-500">
-            {likeCount}
-          </div>
-          {/* Input Content */}
-          <div className="bg-dat-white text-dat-black p-4 rounded shadow-md text-left relative">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Nec
-              sagittis aliquam malesuada bibendum arcu vitae elementum curabitur
-              vitae.
-            </p>
-          </div>
-        </section>
-      </div>
-    </div>
+    <>
+      <Post />
+    </>
   );
 };
 
