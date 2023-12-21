@@ -8,7 +8,7 @@ import {
 import ErrorPage from './pages/ErrorPage.jsx';
 import Index from './pages/Index.jsx';
 import Login from './pages/auth/Login.jsx';
-import Signup from './pages/auth/Signup.jsx';
+import Signup from './pages/auth/SignUp.jsx';
 import Home from './pages/Home.jsx';
 import MainLayout from './pages/MainLayout.jsx';
 import PostEdit, { loader as postEditLoadder } from './pages/PostEdit.jsx';

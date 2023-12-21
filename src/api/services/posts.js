@@ -2,11 +2,34 @@ import axios from "axios";
 import { BASE_URL } from "./config";
 import { getToken } from "./auth/auth";
 
+export const getPostById = async (id) => {
+    const token = getToken();
+    try {
+      const response = await axios.get(`${BASE_URL}/posts/${id}`, {
+        withCredentials: true,
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response);
+      if (response.status === 200) {
+        const post = await response.data;
+        return post;
+      } else {
+        console.error("Failed to fetch posts");
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
 export const getAllPosts = async (setPosts) => {
   const token = getToken();
   try {
     const response = await axios.get(`${BASE_URL}/posts`, {
-      headers: {
+        withCredentials: true,
+        headers: {
         Authorization: `Bearer ${token}`,
       },
     });
@@ -91,7 +114,7 @@ export const updatePost = async (post) => {
             },
         })
         console.log('Post updated:', response.data);
-        return response.data;
+        return response;
     } 
     catch (error) {
         console.error(error)
