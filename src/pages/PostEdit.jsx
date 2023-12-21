@@ -38,17 +38,16 @@ const PostEdit = () => {
                 if (username !== post.username) {
                     navigate(-1);
                 }
-                else if (!post) {
-                    alert("Post not found");
-                    navigate(-1);
-                }
                 else {
                     setTitle(post.title);
                     setContent(post.content);
                     setId(post.id);
                 }
             }
-            
+            else if (!post) {
+                alert("Post not found");
+                navigate(-1);
+            }            
         }
         else {
             alert("You must be logged in to edit a post.");

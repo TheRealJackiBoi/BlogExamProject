@@ -3,38 +3,36 @@ import { useLoaderData } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../api/services/config";
 import { getToken } from "../api/services/auth/auth";
+import { getAllPosts, handleLikeClick } from "../api/services/posts";
 import Post from "../components/post/Post";
 
 export const postsLoader = async () => {
 
-  try {
-    const token = getToken();
-    const response = await axios.get(`${BASE_URL}/posts`, {
-      
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching posts:", error);
+  const posts = await getAllPosts();
+  if (posts) {
+    return posts;
+  }
+  else {
+    return null;
   }
 };
 
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
-  const postsFromLoader = useLoaderData();
+  const [ posts, setPosts ] = useState(useLoaderData())
 
-  useEffect(() => {
-    setPosts(postsFromLoader);
-  }, [postsFromLoader]);
+  const handleLikeClickUpdate = async () => {
+    setPosts(await postsLoader())
+    console.log("handleLikeClickUpdate")
+  }
 
   return (
-    <>
-      <Post />
-    </>
+    <div className="flex flex-col items-center justify-center max-w-prose px-4  h-fit mt-10 mx-auto">
+      <h1 className="mb-4 text-3xl font-bold">Blogged community says...</h1>
+      {posts ? posts.map((post, index) => (
+        <Post post={post} key={index} handleLikeClickUpdate={handleLikeClickUpdate} />
+      )) : (<div>Loading...</div>)}
+    </div>
   );
 };
 

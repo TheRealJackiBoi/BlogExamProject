@@ -24,7 +24,7 @@ export const getPostById = async (id) => {
     }
   };
 
-export const getAllPosts = async (setPosts) => {
+export const getAllPosts = async () => {
   const token = getToken();
   try {
     const response = await axios.get(`${BASE_URL}/posts`, {
@@ -34,9 +34,9 @@ export const getAllPosts = async (setPosts) => {
       },
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       const posts = await response.data;
-      setPosts(posts);
+      return posts;
     } else {
       console.error("Failed to fetch posts");
     }
@@ -45,7 +45,7 @@ export const getAllPosts = async (setPosts) => {
   }
 };
 
-export const handleLikeClick = async (postId, currentLikes, updateLikes) => {
+export const handleLikeClick = async (postId) => {
   try {
     const token = getToken();
     const response = await axios.put(
@@ -60,11 +60,10 @@ export const handleLikeClick = async (postId, currentLikes, updateLikes) => {
     );
 
     if (response.status === 200) {
-      const updatedLikes = currentLikes + 1;
       console.log(
-        `Likes updated for post ${postId}. New count: ${updatedLikes}`
+        `Likes updated for post ${postId}`
       );
-      updateLikes(postId, updatedLikes);
+      return response;
     } else {
       console.error("Failed to update likes");
     }
