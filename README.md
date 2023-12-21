@@ -64,7 +64,7 @@ Make sure you have Node.js and npm installed before running the application.
 
 6. Open your browser and visit `http://localhost:3000` to use the shopping list app, and `http://localhost:3001` to view the json-server data.
 
-## CRUD Operationer
+## Api Calls
 
 ### login
 ```javascript
