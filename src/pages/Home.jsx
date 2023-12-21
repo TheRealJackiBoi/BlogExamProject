@@ -5,7 +5,6 @@ import Post from "../components/post/Post";
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const postsFromLoader = useLoaderData();
-  const postsArray = Object.values(posts);
 
   useEffect(() => {
     setPosts(postsFromLoader);
