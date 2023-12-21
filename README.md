@@ -1,5 +1,7 @@
 # React Blog
 
+[Blogged Backend](https://github.com/TheRealJackiBoi/BlogExamProjectBackend)
+
 ## Description
 
 Introducing 'Blogged'—a visionary blog platform where users seamlessly share their thoughts with friends. Crafted with the power of React hooks, such as  `useState` and `useEffect`, this application empowers you to effortlessly manage your posts. Edit and refine your creations or gracefully bid them farewell with the deletion feature. Navigating through the content is a breeze, thanks to the elegance of React-router for seamless routing.
@@ -25,7 +27,7 @@ Make sure you have Node.js and npm installed before running the application.
 - Node.js: [Download Node.js](https://nodejs.org/)
 - json-server: Install using `npm install -g json-server`
 - [@react-router](https://github.com/remix-run/react-router/blob/main/README.md) for routing
-- [Styling](https://github.com/tailwindlabs/tailwindcss/blob/master/README.md) uses [Tailwind] for simple css
+- [Styling](https://github.com/tailwindlabs/tailwindcss/blob/master/README.md) uses [Tailwind](https://tailwindui.com/) for simple css
 
 
 ## Getting Started
@@ -64,8 +66,92 @@ Make sure you have Node.js and npm installed before running the application.
 
 ## CRUD Operationer
 
+### login
 ```javascript
+export const login = async (username, password, callback) => {
+    const data = {
+      username: username,
+      password: password,
+    };
+  
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/login`, data, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const token = response.data.token;
+      setToken(token);
+  
+      callback(true);
+  
+      return true; // Indicate successful login
+    } catch (error) {
+      console.error(error);
+      callback(false);
+      return false; // Indicate login failure
+    }
+  };
+  ```
 
+### create user
+```javascript
+export const register = async (username, password, callback) => {
+    
+    const data = {
+        "username": username,
+        "password": password
+    }
+
+    try {
+    const response = await axios.post(`${BASE_URL}/auth/register`, 
+        data, 
+        {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+    const token = response.data.token
+    callback(true)
+    setToken(token)
+    } 
+    catch (error) {
+        console.error(error)
+    }
+}
+```
+
+### create post
+```javascript
+    export const createPost = async (title, content, visibility, username) => {
+
+    const data = {
+        "title": title,
+        "content": content,
+        "visibility": visibility,
+        "username": username
+    }
+
+    try {
+    const response = await axios.post(`${BASE_URL}/posts`, 
+        data, 
+        {
+            withCredentials: true,
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${getToken()}`,
+            },
+        })
+        console.log('Post created:', response.data);
+        return response.data;
+    } 
+    catch (error) {
+        console.error(error)
+    }
+}
 ```
 
 
@@ -127,4 +213,6 @@ react-Blogged
 
 ## Contributing
 
-If you are interested in contribuing to this or any of our future projects, apply via this [Contribute doc](https://youtu.be/dQw4w9WgXcQ?t=42) link.
+If you are interested in contribuing to this or any of our future projects, apply via this [Contribute doc](https://www.youtube.com/watch?v=xvFZjo5PgG0) link.
+
+if the first link is broken try here [link](https://www.youtube.com/watch?v=wpV-gGA4PSk)
