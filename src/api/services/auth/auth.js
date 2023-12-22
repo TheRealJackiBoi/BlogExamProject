@@ -69,7 +69,7 @@ export const login = async (username, password, callback) => {
       return false; // Indicate login failure
     }
   };
-export const register = async (username, password, callback) => {
+export const register = async (username, password) => {
     
     const data = {
         "username": username,
@@ -85,9 +85,9 @@ export const register = async (username, password, callback) => {
                 "Content-Type": "application/json",
             },
         })
-    const token = response.data.token
-    callback(true)
+    const token = await response.data.token
     setToken(token)
+    return response
     } 
     catch (error) {
         console.error(error)
