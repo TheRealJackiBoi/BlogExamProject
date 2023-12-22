@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { getUsername } from "../api/services/auth/auth";
-
+import { updatePost, getPostById } from "../api/services/posts";
 
 export const loader = async ({ params }) => {
 
+    
     const id = params.id
 
-    return {
-        "id": id,
-        "title": "Post Title",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Necsagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae.",
-        "visibility": "public",
-        "username": "username",
-        "createdAt": "2021-04-30T23:23:23.000Z",
-        "updatedAt": "2021-04-30T23:23:23.000Z"
+    const post = await getPostById(id);
+    if (await post) {
+        console.log("Post found", post)
+        return post;
     }
-    //check if post exists
+    else {
+        console.log("Post not found")
+        return null
+    }
 }
 
 
@@ -25,19 +25,29 @@ const PostEdit = () => {
     const post = useLoaderData();
     
     const [isPending, setIsPending] = useState(false);
-    const [title, setTitle] = useState(post.title);
-    const [content, setContent] = useState(post.content);
-    const [id, setId] = useState(post.id);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [id, setId] = useState("");
+    
     
     
     useEffect(() => {
         const username = getUsername();
         if (username) {
-            if (!post) {
+            if (post) {
                 if (username !== post.username) {
                     navigate(-1);
                 }
+                else {
+                    setTitle(post.title);
+                    setContent(post.content);
+                    setId(post.id);
+                }
             }
+            else if (!post) {
+                alert("Post not found");
+                navigate(-1);
+            }            
         }
         else {
             alert("You must be logged in to edit a post.");
@@ -48,15 +58,24 @@ const PostEdit = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData(e.target);
-        const post = {
+        const username = post.username;
+        const editedPost = {
+            "id": id,
             "title": data.get("title"), 
             "content": data.get("content"), 
-            "visibility": data.get("visibility")
+            "visibility": data.get("visibility"),
+            "username": username
         }
         setIsPending(true);
-        await updatePost(id, post);
-        setIsPending(false);
-        navigate(`/posts/${id}`);
+        const response = await updatePost(editedPost);
+        if (response.status === 200) {
+            setIsPending(false);
+            navigate(`/posts/${id}`);
+        }
+        else {
+            setIsPending(false);
+            alert("Failed to update post.");
+        }
     };
     
     const onCancel = () => {
@@ -99,10 +118,10 @@ const PostEdit = () => {
             <select name="visibility" defaultValue="public" 
                 className="bg-dat-white text-dat-black pl-2 p-2 rounded shadow-md shadow-gray-400 mb-4"
             >
-                <option value="public" >Public</option>
-                <option value="private">Private</option>
-                <option value="friends">Friends</option>
-                <option value="archived">Archived</option>
+                <option value="PUBLIC" >Public</option>
+                <option value="PRIVATE">Private</option>
+                <option value="FRIENDS">Friends</option>
+                <option value="ARCHIVED">Archived</option>
             </select>
             <button type="submit" className="rounded-full mt-12 bg-dat-blue text-2xl mx-auto py-4 px-8 text-dat-white">Update Post</button>
             </form>

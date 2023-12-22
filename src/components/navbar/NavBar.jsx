@@ -14,10 +14,12 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
     const [username, setUsername] = useState("");
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
+    const [thisLoggedIn, setThisLoggedIn] = useState(loggedIn);
 
     useEffect(() => {
         const token = getToken();
         if (token) {
+            setThisLoggedIn(true)
             setUsername(getUsername());
         }
 
