@@ -112,16 +112,13 @@ export const updatePost = async (post) => {
 export const getUserPosts = async (username) => {
   console.log(username);
   try {
-    const response = await axios.get(
-      `${BASE_URL}/posts/user/${username}`,  // Correctly include username in the URL
-      {
-        withCredentials: true,
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${getToken()}`,
-        },
-      }
-    );
+    const response = await axios.get(`${BASE_URL}/posts/user/${username}`, {
+      withCredentials: true,
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
     console.log(response);
     if (response.status === 200) {
       const posts = await response.data;
@@ -133,4 +130,3 @@ export const getUserPosts = async (username) => {
     console.error("Error fetching posts:", error);
   }
 };
-
