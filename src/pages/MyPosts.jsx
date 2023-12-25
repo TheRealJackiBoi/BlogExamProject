@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLoaderData, useOutletContext } from "react-router-dom";
-import { getUserPosts } from "../api/services/posts";
 import Post from "../components/post/Post";
 import { getUsername } from "../api/services/auth/auth";
-
-export const myPostsLoader = async ( username ) => {
-  const posts = await getUserPosts(username);
-  if (posts) {
-    return posts;
-  } else {
-    return null;
-  }
-};
+import { postsLoader } from "./Home";
 
 const MyPosts = () => {
   const { posts } = useOutletContext();
@@ -24,7 +15,7 @@ const MyPosts = () => {
   };
 
   const updateThisPosts = async () => {
-    setThisPosts(await myPostsLoader(username));
+    setThisPosts(await postsLoader(username));
   };
 
   useEffect(() => {

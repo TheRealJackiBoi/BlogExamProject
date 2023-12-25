@@ -59,7 +59,7 @@ function App() {
             {
               path: "user/myposts",
               element: <MyPosts />,
-              loader: myPostsLoader,
+              loader: postsLoader,
             }
           ],
         }
