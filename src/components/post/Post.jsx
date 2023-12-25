@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Like from "./Like";
+import Username from "./Username";
 
 const Post = ({ post, handleLikeClickUpdate }) => {
 
@@ -21,25 +22,18 @@ const Post = ({ post, handleLikeClickUpdate }) => {
             <div className="absolute top-16 text-xs text-gray-500">
               {formatDateString(post.createdAt.slice(0, 10))}
             </div>
-
             {/* Read more */}
             <div className="absolute bottom-4 right-10 text-xs text-gray-500 cursor-pointer">
               Read more
             </div>
-
-            {/* User
-            maybe add a link to their userprofile on click? */}
-            <div className="absolute top-16 right-10 text-xs text-gray-500">
-              {post.username}
-            </div>
-
+            {/* User */}
+            <Username username={post.username} />
             {/* Like */}
             <Like
               postId={post.id}
               likes={post.likes}
               handleLikeClickUpdate={handleLikeClickUpdate}
             />
-
             {/* Input Content */}
             <div className="bg-dat-white text-dat-black p-4 rounded shadow-md text-left relative">
               <p>{post.content}</p>

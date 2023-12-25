@@ -11,6 +11,7 @@ import Login from './pages/auth/Login.jsx';
 import Signup from './pages/auth/SignUp.jsx';
 import Home from './pages/Home.jsx';
 import MainLayout from './pages/MainLayout.jsx';
+import UserPosts, { userPostsLoader as userPostsLoader } from './pages/UserPosts.jsx';
 import PostEdit, { loader as postEditLoadder } from './pages/PostEdit.jsx';
 import { postsLoader } from './pages/Home.jsx';
 
@@ -55,6 +56,11 @@ function App() {
               element: <PostEdit />,
               loader: postEditLoadder,
             },
+            {
+              path: "user/:username",
+              element: <UserPosts />,
+              loader: userPostsLoader,
+            }
           ],
         }
       ]
