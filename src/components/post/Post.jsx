@@ -6,17 +6,11 @@ import Like from "./Like";
 import Username from "./Username";
 
 const Post = ({ post, handleLikeClickUpdate }) => {
-  const navigate = useNavigate();
   const formatDateString = (dateString) => {
     const [year, month, day] = dateString.split("-");
     return `${day}-${month}-${year}`;
   };
   const username = getUsername();
-  const isCurrentUserPost = username === post.username;
-
-  const checkUsernameEquality = (username, postUsername) => {
-    return username === postUsername;
-  };
 
   return (
     <section className="bg-dat-olive p-10 text-center relative w-full my-4">
