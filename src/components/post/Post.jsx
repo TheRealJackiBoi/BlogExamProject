@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { getUsername } from "../../api/services/auth/auth";
 
 import Like from "./Like";
-import Edit from "./Edit";
+import Username from "./Username";
 
 const Post = ({ post, handleLikeClickUpdate }) => {
   const navigate = useNavigate();
@@ -10,8 +10,9 @@ const Post = ({ post, handleLikeClickUpdate }) => {
     const [year, month, day] = dateString.split("-");
     return `${day}-${month}-${year}`;
   };
-
   const username = getUsername();
+  const isCurrentUserPost = username === post.username;
+
   const checkUsernameEquality = (username, postUsername) => {
     return username === postUsername;
   };
@@ -32,12 +33,15 @@ const Post = ({ post, handleLikeClickUpdate }) => {
         Read more
       </div>
       {/* Edit */}
-      <Edit post={post} username={username} />
-      {/* User
-            maybe add a link to their userprofile on click? */}
-      <div className="absolute top-16 right-10 text-xs text-gray-500">
-        {post.username}
-      </div>
+      {post && checkUsernameEquality(username, post.username) && (
+        <div
+          className="absolute bottom-4 right-28 text-xs text-gray-500 cursor-pointer"
+          onClick={() => navigate(`/posts/${post.id}/edit`)}>
+          Edit
+        </div>
+      )}
+      {/* User */}
+      <Username username={post.username} />
       {/* Like */}
       <Like
         postId={post.id}

@@ -92,7 +92,7 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
                     
                     <>
                     <div className="px-2 py-1">
-                        <NavLink to="posts/user/myposts" className="">
+                        <NavLink to={`posts/user/${username}`} className="">
                             {username}
                         </NavLink>
                     </div>
