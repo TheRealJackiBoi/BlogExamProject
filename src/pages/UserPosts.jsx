@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLoaderData, useOutletContext } from "react-router-dom";
 import Post from "../components/post/Post";
 import { useParams } from "react-router-dom";
+import { getUserPosts } from "../api/services/posts";
 
 export const userPostsLoader = async (username) => {
   const posts = await getUserPosts(username);

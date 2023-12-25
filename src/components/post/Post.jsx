@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { getUsername } from "../../api/services/auth/auth";
 
+import Edit from "./Edit";
 import Like from "./Like";
 import Username from "./Username";
 
@@ -33,13 +34,7 @@ const Post = ({ post, handleLikeClickUpdate }) => {
         Read more
       </div>
       {/* Edit */}
-      {post && checkUsernameEquality(username, post.username) && (
-        <div
-          className="absolute bottom-4 right-28 text-xs text-gray-500 cursor-pointer"
-          onClick={() => navigate(`/posts/${post.id}/edit`)}>
-          Edit
-        </div>
-      )}
+      <Edit post={post} username={username}/>
       {/* User */}
       <Username username={post.username} />
       {/* Like */}
