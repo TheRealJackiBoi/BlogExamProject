@@ -4,7 +4,8 @@ import Post from "../components/post/Post";
 import { useParams } from "react-router-dom";
 import { getUserPosts } from "../api/services/posts";
 
-export const userPostsLoader = async (username) => {
+export const userPostsLoader = async ({ params }) => {
+  const username = params.username
   const posts = await getUserPosts(username);
   if (posts) {
     return posts;
@@ -26,7 +27,7 @@ const UserPosts = ({}) => {
   };
 
   const updateThisPosts = async () => {
-    setThisPosts(await userPostsLoader(clickedUsername));
+    setThisPosts(await userPostsLoader({ params: { username: clickedUsername }}));
   };
 
   useEffect(() => {
