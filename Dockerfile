@@ -16,7 +16,7 @@ ENV VITE_SUPAKEY=$VITE_SUPAKEY
 ENV VITE_DEPLOYED=$VITE_DEPLOYED
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./app/
+COPY package*.json /app/
 
 # Install dependencies
 RUN npm install
