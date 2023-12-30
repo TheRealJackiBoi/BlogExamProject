@@ -16,7 +16,7 @@ ENV VITE_SUPAKEY=$VITE_SUPAKEY
 ENV VITE_DEPLOYED=$VITE_DEPLOYED
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./
+COPY package*.json ./app/
 
 # Install dependencies
 RUN npm install
@@ -30,8 +30,5 @@ RUN npm run build
 
 FROM nginx:1.25
 COPY --from=build-stage /app/dist/ /usr/share/nginx/html
-
-# Expose port 3000
-EXPOSE 3000
 
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
