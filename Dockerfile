@@ -1,5 +1,5 @@
 # Use official Node image as a base image
-FROM node:20.9.0-alpine
+FROM node:20.9.0-alpine as build-stage
 
 # Set the working directory inside the container
 WORKDIR /app
