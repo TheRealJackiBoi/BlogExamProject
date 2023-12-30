@@ -101,9 +101,10 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
                         <NavLink to="#" onClick={openModal} className="">
                             New Post
                         </NavLink>
-                        <NavLink to="/" className="">
-                            New Post
+                        <NavLink to={`/settings/${username}`} className="">
+                            Settings
                         </NavLink>
+
                     </div>
                     ) : 
                     (
@@ -111,8 +112,8 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
                         <NavLink to="#" onClick={openModal} className="mx-2 my-1">
                             New Post
                         </NavLink>
-                        <NavLink to="/" className="mx-2 my-1">
-                            New Post
+                        <NavLink to={`/settings/${username}`} className="mx-2 my-1">
+                            Settings
                         </NavLink>
                         </>
                     )}

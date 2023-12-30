@@ -57,16 +57,19 @@ export const login = async (username, password, callback) => {
         },
       });
   
-      const token = response.data.token;
-      setToken(token);
-  
-      callback(true);
-  
-      return true; // Indicate successful login
+      if (response.status === 200) {
+        const token = response.data.token;
+        setToken(token);
+        return response;
+      } 
+      else {
+        console.error("couldn't log in, error: ", response)
+        return response;
+      } 
+      
     } catch (error) {
       console.error(error);
-      callback(false);
-      return false; // Indicate login failure
+      return {status: 400}; // Indicate login failure
     }
   };
 export const register = async (username, password) => {

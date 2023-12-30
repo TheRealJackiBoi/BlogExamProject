@@ -24,18 +24,19 @@ const Login = () => {
     const username = data.get("username");
     const password = data.get("password");
       
-  
-    login(username, password, setLoggedIn)
-    .then(() => {
-        if(loggedIn) {
-        const token = getToken();
-        navigate("/home");
-        }
-    })
-    .catch((error) => {
-      console.error("Login failed", error);
+    //setlogin
+    const response = await login(username, password)
+    if(response.status === 200) {
+      const token = getToken();
+      setLoggedIn(true);
+      console.log("logged in")
+      navigate("/home");
+    }
+    else {
+      console.error("Login failed");
+      alert("Login failed, try again")
       navigate("/auth/login");
-    });
+    }
     
     
   };
