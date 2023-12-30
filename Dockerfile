@@ -1,5 +1,5 @@
 # Use official Node image as a base image
-FROM node:20.9.0-alpine
+FROM node:20.9.0-alpine as build-stage
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -16,7 +16,7 @@ ENV VITE_SUPAKEY=$VITE_SUPAKEY
 ENV VITE_DEPLOYED=$VITE_DEPLOYED
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./app/
+COPY package*.json /app/
 
 # Install dependencies
 RUN npm install
