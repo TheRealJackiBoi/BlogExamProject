@@ -38,9 +38,15 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
 
     }, [loggedIn]);
 
+
+    const unfocused = () => {
+        setBurgerMenuOpen(false);
+    }
     
     return (
-        <div className="flex justify-between items-center w-screen bg-dat-olive">
+        <div className="flex justify-between items-center w-screen bg-dat-olive"
+            on    
+        >
             <img
                 id="navlogo"
                 src={logo}
@@ -49,6 +55,7 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
                 onClick={() => {
                     loggedIn ? navigate("/home") : navigate("/");
                 }}
+                
             />
 
             <SearchBar />

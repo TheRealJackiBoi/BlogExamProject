@@ -38,7 +38,7 @@ const SearchBar = () => {
     if (e.target.value.length >= 1) {
       setSearching(true)
       const response = await getTopUsersnamesForNameSearch(e.target.value)
-      
+      console.log(response)
       if (response == null) {
         setSearching(false)
         setNotFoundSearch(true)
@@ -49,7 +49,9 @@ const SearchBar = () => {
         setNotFoundSearch(true)
       }
       else {
-        setSearchResults(response)
+        const withImages = await getImagesForUsers(response)
+        console.log(withImages)
+        setSearchResults(withImages)
         setSearching(false)
         setNotFoundSearch(false)
       }
@@ -60,15 +62,16 @@ const SearchBar = () => {
     }
   }
 
-  const handleUserClick = async (e) => {
-    const username = e.target.getAttribute("data-username")
+  const handleUserClick = async (username) => {
 
-    navigate(`/posts/user/${username}`)
-    
+
     setInputValue("Search...")
     setSearchResults([])
     setSearching(false)
     setNotFoundSearch(false)
+    console.log(username)
+    navigate(`/posts/user/${username}`)
+    
     
   }
 
