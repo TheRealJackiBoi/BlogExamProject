@@ -86,6 +86,7 @@ export const register = async (username, password) => {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
             },
         })
     const token = await response.data.token

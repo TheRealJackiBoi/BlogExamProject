@@ -31,3 +31,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/bloggedfrontend:latest
+          build-args: |
+            VITE_DEPLOYED=${{ secrets.VITE_DEPLOYED }}
+            VITE_SUPAKEY=${{ secrets.VITE_SUPAKEY }}
