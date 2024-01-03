@@ -33,3 +33,14 @@ export const getImage = async ( username ) => {
       return `${IMAGE_BASE_URL}/${username}/avatar.png`
     }
   }
+
+
+export const getImagesForUsers = async ( usernames ) => {
+  const usernamesWithImages = []
+  for (const username of usernames) {
+    const image = await getImage(username.username)
+    usersWithImages.push({...username, image})
+  }
+
+  return usernamesWithImages;
+}
