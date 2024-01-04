@@ -12,6 +12,7 @@ import Signup from './pages/auth/SignUp.jsx';
 import Home from './pages/Home.jsx';
 import MainLayout from './pages/MainLayout.jsx';
 import UserSettings from './pages/UserSettings.jsx';
+import PostPage from './pages/PostPage.jsx';
 
 import UserPosts, { userPostsLoader as userPostsLoader } from './pages/UserPosts.jsx';
 import PostEdit, { loader as postEditLoadder } from './pages/PostEdit.jsx';
@@ -23,9 +24,11 @@ function App() {
     {
       path: "/",
       element: <MainLayout />,
-      errorElement: (<MainLayout>
-                      <ErrorPage />
-                    </MainLayout>),
+      errorElement: (
+        <MainLayout>
+          <ErrorPage />
+        </MainLayout>
+        ),
       children: [
         {
           index: true,
@@ -52,7 +55,11 @@ function App() {
         {
           path: "posts/",
           children: [
-            
+            {
+              path: ":id",
+              element: <PostPage />,
+              loader: postEditLoadder,
+            },
             {
               path: ":id/edit",
               element: <PostEdit />,
@@ -80,13 +87,3 @@ function App() {
 
 export default App
 
-/*
-
-<MainContext.Provider value={{loggedIn, setLoggedIn}}>
-    
-      <NavBar />
-      <Outlet />
-
-    </MainContext.Provider>
-
-    */
