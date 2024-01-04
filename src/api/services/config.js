@@ -1,5 +1,5 @@
 let BASE_URL
-if (import.meta.env.VITE_DEPLOYED === true) {
+if (import.meta.env.VITE_DEPLOYED == true) {
     BASE_URL = 'http://bloggedapi.cudia.dk:7070/api'
 } else {
     BASE_URL = 'http://localhost:7070/api'
