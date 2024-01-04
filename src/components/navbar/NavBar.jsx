@@ -5,7 +5,7 @@ import { NavLink, useOutletContext, useNavigate } from "react-router-dom";
 import { getToken, getUsername } from "./../../api/services/auth/auth.js";
 import {menu3} from 'react-icons-kit/icomoon/menu3'
 import { Icon } from "react-icons-kit";
-
+import SearchBar from "./SearchBar.jsx";
 
 // get setLoggedIn and loggedIn from props
 const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
@@ -38,9 +38,15 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
 
     }, [loggedIn]);
 
+
+    const unfocused = () => {
+        setBurgerMenuOpen(false);
+    }
     
     return (
-        <div className="flex justify-between items-center w-screen bg-dat-olive">
+        <div className="flex justify-between items-center w-screen bg-dat-olive"
+            on    
+        >
             <img
                 id="navlogo"
                 src={logo}
@@ -49,14 +55,11 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
                 onClick={() => {
                     loggedIn ? navigate("/home") : navigate("/");
                 }}
+                
             />
-                <form id="searchprofiles" className="flex max-w-60 absolute left-1/2 -translate-x-1/2">
-                    <input
-                        type="text"
-                        className="bg-dat-white border border-dat-black pl-2 rounded-full  w-full h-8 shadow-md shadow-gray-400"
-                        placeholder="Search..."
-                    />
-                </form>
+
+            <SearchBar />
+
             {isSmallScreen && (
                 <div
                     id="burgerMenu"
