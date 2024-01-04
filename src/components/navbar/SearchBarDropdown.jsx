@@ -16,9 +16,6 @@ const SearchBarDropdown = ({ searchResults, searching, notFoundSearch, handleUse
 
       { !searching && searchResults.length !== 0 && searchResults.map((result, index) => {
         const username = result.username
-        const handleClick = () => {
-          handleUserClick(username)
-        }
         return (
         <div 
           key={index} 
