@@ -44,7 +44,7 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
     }
     
     return (
-        <div className="flex justify-between items-center fixed w-screen top-0 z-10 bg-dat-olive"
+        <div className="flex justify-between items-center shadow shadow-md fixed w-screen top-0 z-10 bg-dat-olive"
             on    
         >
             <img
