@@ -13,7 +13,7 @@ const Post = ({ post, handleLikeClickUpdate }) => {
   const username = getUsername();
 
   return (
-    <section className="bg-dat-olive p-10 text-center relative w-full my-4">
+    <section className="bg-dat-olive z-0 p-10 text-center relative w-full my-4">
       <h3
         className="mb-3 text-xl"
         style={{ position: "relative", top: "-16px" }}>

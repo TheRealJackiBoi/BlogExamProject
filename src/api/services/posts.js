@@ -110,7 +110,6 @@ export const updatePost = async (post) => {
 };
 
 export const getUserPosts = async (username) => {
-  console.log(username);
   try {
     const response = await axios.get(`${BASE_URL}/posts/user/${username}`, {
       withCredentials: true,
