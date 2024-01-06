@@ -20,7 +20,7 @@ const Post = ({ post, handleLikeClickUpdate }) => {
         {post.title}
       </h3>
       {/* Date */}
-      <div className="absolute top-16 text-xs text-gray-500">
+      <div className="absolute top-14 text-xs text-gray-500">
         {formatDateString(post.createdAt.slice(0, 10))}
       </div>
       {/* Read more */}
