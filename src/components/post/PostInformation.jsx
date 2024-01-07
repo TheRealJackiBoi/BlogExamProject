@@ -8,7 +8,7 @@ const PostInformation = ({ date, username }) => {
   };
 
   return (
-    <div className="flex justify-between my-1 -mb-1">
+    <div className="flex min-w-full justify-between my-1 -mb-1">
       <p className="inline-block text-xs text-gray-500 mt-2">
         {formatDateString(date.slice(0, 10))}
       </p>

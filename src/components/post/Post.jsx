@@ -11,9 +11,9 @@ const Post = ({ post, handleLikeClickUpdate }) => {
   const username = getUsername();
 
   return (
-    <section className="bg-dat-olive z-0 p-10 text-center relative w-full my-4">
+    <section className="bg-dat-olive z-0 p-10 text-center relative w-full min-w-fit my-4">
       
-      <h3 className="mb-2 text-xl">
+      <h3 className="mb-2 text-xl min-w-[250px]">
         {post.title}
       </h3>
       
@@ -21,7 +21,7 @@ const Post = ({ post, handleLikeClickUpdate }) => {
          
 
       {/* Input Content */}
-      <div className="bg-dat-white text-dat-black p-4 rounded shadow-md text-left relative">
+      <div className="bg-dat-white min-w-full text-dat-black p-4 rounded shadow-md text-left relative">
         <p>{post.content}</p>
       </div>
 

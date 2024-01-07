@@ -28,7 +28,7 @@ const Username = ({ username }) => {
 
 
   return (
-    <div className="text-xs text-gray-500 cursor-pointer "
+    <div className="min-w-fit text-xs text-gray-500 cursor-pointer "
     onClick={handleUsernameClick}
     >
       <p className=" align-text-bottom inline">{username}</p>
