@@ -28,13 +28,13 @@ const Username = ({ username }) => {
 
 
   return (
-    <div className="absolute top-14 right-10 text-xs text-gray-500 cursor-pointer"
+    <div className="text-xs text-gray-500 cursor-pointer "
     onClick={handleUsernameClick}
     >
-      {username}
+      <p className=" align-text-bottom inline">{username}</p>
       <img 
         src={imageurl} 
-        className="w-6 h-6 rounded-full inline-block ml-2"
+        className="w-6 h-6 rounded-full inline-block ml-2 mb-2"
         alt="avatar"
       />
     </div>
