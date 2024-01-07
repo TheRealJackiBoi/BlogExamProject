@@ -37,8 +37,8 @@ const Home = () => {
   }, [posts])
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-prose px-4  h-fit mt-10 mx-auto">
-      <h1 className="mb-4 text-3xl font-bold">Blogged community says...</h1>
+    <div className="flex flex-col items-center justify-center max-w-prose px-4  h-fit mx-auto">
+      <h1 className="mb-4 text-3xl mt-20 font-bold">Blogged community says...</h1>
       {thisPosts ? thisPosts.map((post, index) => (
         <Post post={post} key={index} handleLikeClickUpdate={handleLikeClickUpdate} />
       )) : (<div>Loading...</div>)}
