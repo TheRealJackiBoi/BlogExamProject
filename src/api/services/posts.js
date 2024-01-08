@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "./config";
-import { getToken } from "./auth/auth";
+import { getToken, getUsername } from "./auth/auth";
 
 export const getPostById = async (id) => {
   const token = getToken();
@@ -47,9 +47,10 @@ export const getAllPosts = async () => {
 
 export const handleLikeClick = async (postId) => {
   try {
+    const username = await getUsername();
     const token = getToken();
     const response = await axios.put(
-      `${BASE_URL}/posts/${postId}/likes`,
+      `${BASE_URL}/posts/${postId}/like/${username}`,
       {},
       {
         withCredentials: true,
@@ -69,6 +70,33 @@ export const handleLikeClick = async (postId) => {
     console.error("Error updating likes:", error);
   }
 };
+
+export const handleUnLikeClick = async (postId) => {
+  try {
+    const username = await getUsername();
+    const token = getToken();
+    const response = await axios.put(
+      `${BASE_URL}/posts/${postId}/unlike/${username}`,
+      {},
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      console.log(`Likes updated for post ${postId}`);
+      return response;
+    } else {
+      console.error("Failed to update likes");
+    }
+  } catch (error) {
+    console.error("Error updating likes:", error);
+  }
+}
+
 
 export const createPost = async (title, content, visibility, username) => {
   const data = {
