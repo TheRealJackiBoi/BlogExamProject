@@ -19,11 +19,8 @@ const UserPosts = ({}) => {
   const [thisPosts, setThisPosts] = useState(useLoaderData());
   const { username: clickedUsername } = useParams();
 
-  console.log("clickedUsername", clickedUsername);
-
   const handleLikeClickUpdate = async () => {
     updateThisPosts();
-    console.log("handleLikeClickUpdate");
   };
 
   const updateThisPosts = async () => {
@@ -35,8 +32,8 @@ const UserPosts = ({}) => {
   }, [posts, clickedUsername]);
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-prose px-4  h-fit mt-10 mx-auto">
-      <h1 className="mb-4 text-3xl font-bold">
+    <div className="flex flex-col items-center justify-center max-w-prose px-4 mx-auto z-0">
+      <h1 className="mb-4 text-3xl mt-20 font-bold">
         {clickedUsername ? `${clickedUsername}'s posts` : "Loading..."}
       </h1>
       {thisPosts ? (

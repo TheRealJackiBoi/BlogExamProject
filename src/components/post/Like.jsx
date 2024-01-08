@@ -15,16 +15,16 @@ const Like = ({ postId, likes, handleLikeClickUpdate }) => {
     }
   }
   return (
-    <>
+    <div className="flex">
       <div
-        className="absolute bottom-4 text-gray-500 cursor-pointer"
+        className="text-gray-500 cursor-pointer mr-1 -mt-2"
         onClick={handleLike}>
         <Icon icon={heart} size={14} />
       </div>
-      <div className="absolute bottom-4 left-14 text-sm text-gray-500">
+      <div className="left-14 text-xs text-gray-500">
         {likes}
       </div>
-    </>
+    </div>
   );
 };
 
