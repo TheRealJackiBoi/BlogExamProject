@@ -10,6 +10,8 @@ const PostActions = ({
   toggleReadMore,
   isExpanded,
 }) => {
+  const hasReadMoreButton = post.content && post.content.length > 150;
+
   return (
     <div className="flex justify-between my-1">
       <Like
@@ -18,14 +20,15 @@ const PostActions = ({
         handleLikeClickUpdate={handleLikeClickUpdate}
       />
 
-      <div className="flex-inline justify-between">
+      <div className="flex items-center">
         <Edit post={post} username={username} />
-
-        <ReadMore
-          onToggleReadMore={toggleReadMore}
-          isExpanded={isExpanded}
-          contentLength={post.content.length}
-        />
+        {hasReadMoreButton && (
+          <ReadMore
+            onToggleReadMore={toggleReadMore}
+            isExpanded={isExpanded}
+            contentLength={post.content.length}
+          />
+        )}
       </div>
     </div>
   );

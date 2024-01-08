@@ -9,7 +9,7 @@ const ReadMore = ({ onToggleReadMore, isExpanded, contentLength }) => {
     <>
       {contentLength > 150 && (
         <button
-          className="text-xs text-gray-500 cursor-pointer absolute right-10"
+          className="text-xs text-gray-500 cursor-pointer ml-2"
           onClick={toggleReadMore}>
           {isExpanded ? "Read less" : "Read more"}
         </button>
