@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { getUsername } from "../../api/services/auth/auth";
-
-import Edit from "./Edit";
 import Like from "./Like";
+import Edit from "./Edit";
 import Username from "./Username";
+import ReadMore from "./ReadMore";
 
 const Post = ({ post, handleLikeClickUpdate }) => {
   const formatDateString = (dateString) => {
@@ -23,13 +23,12 @@ const Post = ({ post, handleLikeClickUpdate }) => {
       <div className="absolute top-16 text-xs text-gray-500">
         {formatDateString(post.createdAt.slice(0, 10))}
       </div>
-      {/* Read more */}
-      <div className="absolute bottom-4 right-10 text-xs text-gray-500 cursor-pointer">
-        Read more
-      </div>
-      {/* Edit */}
-      <Edit post={post} username={username}/>
-      {/* User */}
+      {/* ReadMore */}
+      <ReadMore
+        postId={post.id}
+        handleLikeClickUpdate={handleLikeClickUpdate}
+      />
+      <Edit post={post} username={username} />
       <Username username={post.username} />
       {/* Like */}
       <Like
