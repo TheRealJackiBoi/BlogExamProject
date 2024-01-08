@@ -11,7 +11,7 @@ export function NewPost({ closeModal, showModal, setPosts }) {
   });
   const [visibility, setVisibility] = useState(enumVisibility[0]);
 
-  const handlePostSubmit = (e) => {
+  const handlePostSubmit = async (e) => {
     e.preventDefault();
 
     // logging for testing
@@ -21,12 +21,14 @@ export function NewPost({ closeModal, showModal, setPosts }) {
     const username = getUsername();
     console.log('Username:', username);
     console.log('Visibility:', visibility);
-    createPost(formData.title, formData.postbody, visibility, username);
+    const response = await createPost(formData.title, formData.postbody, visibility, username);
 
     formData.title = '';
     formData.postbody = '';
     closeModal();
-    setPosts(prevPosts => [...prevPosts, {title: formData.title, postbody: formData.postbody, visibility: visibility, username: username}])
+    if (response) {
+      setPosts([formData])
+    }
   };
 
   const handleChange = (e) => {
