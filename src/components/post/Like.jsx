@@ -1,13 +1,28 @@
 import React, { useState } from "react";
 import { Icon } from "react-icons-kit";
 import { heart } from "react-icons-kit/icomoon/heart";
-import { handleLikeClick } from "../../api/services/posts";
+import { handleLikeClick, handleUnLikeClick } from "../../api/services/posts";
+import { getUsername } from "../../api/services/auth/auth";
 
-const Like = ({ postId, likes, handleLikeClickUpdate }) => {
+const Like = ({ post, handleLikeClickUpdate }) => {
+  const username = getUsername();
+  const [isLiked, setIsLiked] = useState(post.haveLikedUsernames.includes(username))
 
   const handleLike = async () => {
-    const response = await handleLikeClick(postId);
+    
+    let response;
+    if (isLiked) {
+      response = await handleUnLikeClick(post.id);
+    }
+    else if (!isLiked) {
+      response = await handleLikeClick(post.id);
+    }
+    else {
+      console.log("Couldn't like post")
+      return;
+    }
     if (response.status === 200) {
+      isLiked ? setIsLiked(false) : setIsLiked(true)
       handleLikeClickUpdate()
     }
     else {
@@ -19,10 +34,10 @@ const Like = ({ postId, likes, handleLikeClickUpdate }) => {
       <div
         className="text-gray-500 cursor-pointer mr-1 -mt-2"
         onClick={handleLike}>
-        <Icon icon={heart} size={14} />
+        <Icon icon={heart} className={isLiked && "text-dat-red"} size={14} />
       </div>
       <div className="left-14 text-xs text-gray-500">
-        {likes}
+        {post.likes}
       </div>
     </div>
   );

@@ -1,16 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { getUsername } from "../../api/services/auth/auth";
 
-const Edit = ({ post, username }) => {
+const Edit = ({ post }) => {
   const navigate = useNavigate();
 
-  const checkUsernameEquality = (username, postUsername) => {
-    return username === postUsername;
+  const checkUsernameEquality = ( postUsername) => {
+    return getUsername() === postUsername;
   };
 
   return (
     <>
-      {post && checkUsernameEquality(username, post.username) && (
+      {post && checkUsernameEquality( post.username) && (
         <div
           className="text-xs text-gray-500 cursor-pointer"
           onClick={() => navigate(`/posts/${post.id}/edit`)}>
