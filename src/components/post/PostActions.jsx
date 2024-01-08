@@ -6,15 +6,14 @@ const PostActions = ({ post, username, handleLikeClickUpdate }) => {
     return (
         <div className="flex justify-between my-1">
             <Like
-                postId={post.id}
-                likes={post.likes}
+                post={post}
                 handleLikeClickUpdate={handleLikeClickUpdate}
             />
 
-            <div className="flex-inline justify-between">
-                <Edit post={post} username={username}/>
+            <div className="flex-inline -mt-1 justify-between">
+                <Edit post={post} />
 
-                <div className="text-xs text-gray-500 cursor-pointer">
+                <div className="inline ml-2 text-xs text-gray-500 cursor-pointer">
                     Read more
                 </div>
             </div>
