@@ -4,9 +4,9 @@ const DEPLOYED = import.meta.env.VITE_DEPLOYED
 console.log("dep", DEPLOYED)
 
 if (DEPLOYED === "true") {
-    BASE_URL = 'http://bloggedapi.jackoulund.dk/api'
+    BASE_URL = 'https://bloggedapi.jackoulund.dk/api'
 } else {
-    BASE_URL = 'https://localhost:7070/api'
+    BASE_URL = 'http://localhost:7070/api'
 }
 // export const BASE_URL = !import.meta.env.VITE_DEPLOYED ? 'http://localhost:7070/api' : 'http://bloggedapi.cudia.dk:7070/api';
 
