@@ -25,6 +25,7 @@ const Post = ({ post, handleLikeClickUpdate }) => {
 
       <PostActions
         post={post}
+        username={post.username}
         handleLikeClickUpdate={handleLikeClickUpdate}
         toggleReadMore={toggleReadMore}
         isExpanded={isExpanded}

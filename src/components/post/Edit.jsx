@@ -12,7 +12,7 @@ const Edit = ({ post, username }) => {
     <>
       {post && checkUsernameEquality(username, post.username) && (
         <div
-          className="absolute bottom-4 right-28 text-xs text-gray-500 cursor-pointer"
+          className="absolute right-28 text-xs text-gray-500 cursor-pointer"
           onClick={() => navigate(`/posts/${post.id}/edit`)}>
           Edit
         </div>
