@@ -11,12 +11,12 @@ const Edit = ({ post }) => {
 
   return (
     <>
-      {post && checkUsernameEquality(post.username) && (
-        <p
-          className="inline text-xs text-gray-500 cursor-pointer"
+      {post && checkUsernameEquality( post.username) && (
+        <div
+          className="text-xs text-gray-500 cursor-pointer"
           onClick={() => navigate(`/posts/${post.id}/edit`)}>
           Edit
-        </p>
+        </div>
       )}
     </>
   );
