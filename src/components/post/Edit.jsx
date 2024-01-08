@@ -5,7 +5,7 @@ import { getUsername } from "../../api/services/auth/auth";
 const Edit = ({ post }) => {
   const navigate = useNavigate();
 
-  const checkUsernameEquality = ( postUsername) => {
+  const checkUsernameEquality = (postUsername) => {
     return getUsername() === postUsername;
   };
 
