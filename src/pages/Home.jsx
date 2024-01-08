@@ -29,7 +29,7 @@ const Home = () => {
   }
 
   const updateThisPosts = async () => {
-    setThisPosts(await postsLoader())
+    setThisPosts(await getAllPosts());
   }
 
   useEffect(() => {
