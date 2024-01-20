@@ -58,7 +58,7 @@ const NavBar = ({ loggedIn, setLoggedIn, openModal }) => {
                 
             />
 
-            <SearchBar />
+            { username && <SearchBar /> }
 
             {isSmallScreen && (
                 <div
