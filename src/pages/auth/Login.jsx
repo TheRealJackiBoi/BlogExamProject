@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { login, getToken } from './../../api/services/auth/auth.js'
-import { Link, redirect, useNavigate, useOutletContext} from "react-router-dom";
+import { Link, useNavigate, useOutletContext} from "react-router-dom";
 
 // get setLoggedIn and loggedIn from props
 const Login = () => {
