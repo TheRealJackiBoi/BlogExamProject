@@ -60,16 +60,16 @@ export const login = async (username, password, callback) => {
       if (response.status === 200) {
         const token = response.data.token;
         setToken(token);
-        return response;
+        return token
       } 
       else {
         console.error("couldn't log in, error: ", response)
-        return response;
+        return null
       } 
       
     } catch (error) {
       console.error(error);
-      return {status: 400}; // Indicate login failure
+      return null 
     }
   };
 export const register = async (username, password) => {
@@ -80,18 +80,19 @@ export const register = async (username, password) => {
     }
 
     try {
-    const response = await axios.post(`${BASE_URL}/auth/register`, 
-        data, 
-        {
-            withCredentials: true,
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-        })
-    const token = await response.data.token
-    setToken(token)
-    return response
+        const response = await axios.post(`${BASE_URL}/auth/register`, 
+            data, 
+            {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            })
+
+        const token = response.data.token
+        setToken(token)
+        return token
     } 
     catch (error) {
         console.error(error)
