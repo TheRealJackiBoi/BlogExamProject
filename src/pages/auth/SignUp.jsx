@@ -47,24 +47,22 @@ const SignUp = () => {
         navigate(`/auth/signup`);
       }
 
-      const response = await register(username, password)
-      if (response.status === 201) {
+      const token = await register(username, password)
+      
+      if (token) {
         console.log(`${username} has been created`)
         setLoggedIn(true)
         navigate("/home")
         return
       } 
-      else if (response.status === 400) {
+      else {
         alert("Couldn't create your account")
         navigate(`/auth/signup`);
         return 
       }
-      else {
-        alert("Something went wrong")
-        navigate(`/auth/signup`);
-        return
-      }
-    } else {
+    } 
+    // If passwords don't match, set passwordMatch to false
+    else {
       setPasswordMatch(false);
       setFormComplete(
         !!username && !!password && !!repeatPassword && !!securityQuestion

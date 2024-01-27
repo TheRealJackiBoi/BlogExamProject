@@ -1,33 +1,31 @@
 import { useEffect } from 'react';
 import { login, getToken } from './../../api/services/auth/auth.js'
-import { Link, redirect, useNavigate, useOutletContext} from "react-router-dom";
+import { Link, useNavigate, useOutletContext} from "react-router-dom";
 
 // get setLoggedIn and loggedIn from props
 const Login = () => {
 
   const navigate = useNavigate();
   
-  const {loggedIn, setLoggedIn} = useOutletContext();
+  const {setLoggedIn} = useOutletContext();
 
  
 
   const handleSubmit = async ( request ) => {
     
     const data = new FormData(request.target);
-    console.log(data)
+
     if (data.get("username") === "" || data.get("password") === "") {
         alert("Please fill out all fields")
         navigate(`/auth/login`);
     }
-    console.log(data)
   
     const username = data.get("username");
     const password = data.get("password");
       
-    //setlogin
-    const response = await login(username, password)
-    if(response.status === 200) {
-      const token = getToken();
+    const token = await login(username, password)
+
+    if(token) {
       setLoggedIn(true);
       console.log("logged in")
       navigate("/home");
