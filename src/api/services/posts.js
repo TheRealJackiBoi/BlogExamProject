@@ -39,9 +39,11 @@ export const getAllPosts = async () => {
       return posts;
     } else {
       console.error("Failed to fetch posts");
+      return null
     }
   } catch (error) {
     console.error("Error fetching posts:", error);
+    return null
   }
 };
 
