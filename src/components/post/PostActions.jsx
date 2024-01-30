@@ -1,24 +1,33 @@
-import Like from "./Like"
-import Edit from "./Edit"
+import React from "react";
+import Like from "./Like";
+import Edit from "./Edit";
+import ReadMore from "./ReadMore";
 
-const PostActions = ({ post, username, handleLikeClickUpdate }) => {
+const PostActions = ({
+  post,
+  username,
+  handleLikeClickUpdate,
+  toggleReadMore,
+  isExpanded,
+}) => {
+  const hasReadMoreButton = post.content && post.content.length > 150;
 
-    return (
-        <div className="flex justify-between my-1">
-            <Like
-                post={post}
-                handleLikeClickUpdate={handleLikeClickUpdate}
-            />
+  return (
+    <div className="flex justify-between my-1">
+      <Like post={post} handleLikeClickUpdate={handleLikeClickUpdate} />
 
-            <div className="flex-inline -mt-1 justify-between">
-                <Edit post={post} />
+      <div className="flex items-center">
+        <Edit post={post} username={username} />
+        {hasReadMoreButton && (
+          <ReadMore
+            onToggleReadMore={toggleReadMore}
+            isExpanded={isExpanded}
+            contentLength={post.content.length}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
 
-                <div className="inline ml-2 text-xs text-gray-500 cursor-pointer">
-                    Read more
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default PostActions
+export default PostActions;
